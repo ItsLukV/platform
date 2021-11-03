@@ -24,7 +24,7 @@ function setBackDrop() {
     fill(45 / 2, 181 / 2, 151 / 2);
     print("dark");
   }
-  rect((width - 1600) / 2, (height - 900) / 2, 1600, 900);
+  rect(plotx(0), ploty(0), plotx(1600), ploty(900));
 }
 
 function setup() {
@@ -33,16 +33,28 @@ function setup() {
 }
 
 function plotx(x /*0-1600*/) {
-  x = (width - 1600) / 2 + x;
+  if(width<1600){
+    x = ((width - 1600) / 2 + x)/2;
+  }else if(height<900){
+    x = ((width - 1600) / 2 + x)/2;
+  }else{
+    x = (width - 1600) / 2 + x
+  }
   return x;
 }
 function ploty(y /*0-900*/) {
-  y = (height - 900) / 2 + y;
+  if(width<1600){
+    y = ((height - 900) / 2 + y)/2;
+  }else if(height < 900){
+    y = ((height - 900) / 2 + y)/2;
+  }else{
+    y = (height - 900) / 2 + y;
+  }
   return y;
 }
 
 //16:9 spille størlse
-//1600 * 900 px
+//1600 * 900 px 
 
 function draw() {
   fill(0);
@@ -53,7 +65,11 @@ function draw() {
 
 function mand(x, y) {
   //original 462x642
+  if(width<1600 || height<900){
+    image(img, plotx(x), ploty(y - 100), 50, 50);
+  }else{
   image(img, plotx(x), ploty(y - 100), 100, 100);
+  }
 }
 
 function platforme() {
@@ -66,8 +82,8 @@ function canvasCut() {
   noStroke();
   rect(0, 0, plotx(0), height);
   rect(0, 0, width, ploty(0));
-  rect(plotx(0) - 5, ploty(900), width + 10 - plotx(0));
-  rect(plotx(1600), ploty(0) - 5, plotx(0), ploty(900) - ploty(0) + 10);
+  rect(plotx(-5), ploty(900), width - plotx(10));
+  rect(plotx(1600), ploty(-5), plotx(0), ploty(900) - ploty(10));
   stroke(0);
 }
 
