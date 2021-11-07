@@ -1,7 +1,11 @@
 let url =
-  "https://api.openweathermap.org/data/2.5/weather?id=2618424&appid=2a0853a28b198e2d0fb19c11ce2a044a";
+"https://api.openweathermap.org/data/2.5/weather?id=2618424&appid=2a0853a28b198e2d0fb19c11ce2a044a";
 //api.openweathermap.org/data/2.5/weather?id=2618424&appid=3d458e6af50ae07021a3f6fa1af4bc45
 var data;
+let gravit8
+let xX = 50 //charector x
+let yY = 800 // same but y
+
 
 function preload() {
   img = loadImage("placeholder.png");
@@ -40,6 +44,7 @@ function plotx(x /*0-1600*/) {
   }else{
     x = (width - 1600) / 2 + x
   }
+  print (x)
   return x;
 }
 function ploty(y /*0-900*/) {
@@ -50,6 +55,7 @@ function ploty(y /*0-900*/) {
   }else{
     y = (height - 900) / 2 + y;
   }
+  print (y)
   return y;
 }
 
@@ -59,17 +65,14 @@ function ploty(y /*0-900*/) {
 function draw() {
   fill(0);
   platforme();
-  mand(50, 800);
+  mand(xX, yY);
   canvasCut();
+  yY=gravity(xX,yY)
 }
 
 function mand(x, y) {
   //original 462x642
-  if(width<1600 || height<900){
-    image(img, plotx(x), ploty(y - 100), 50, 50);
-  }else{
-  image(img, plotx(x), ploty(y - 100), 100, 100);
-  }
+  image(img, plotx(x), ploty(y - 100), imgSize(), imgSize());
 }
 
 function platforme() {
@@ -89,7 +92,6 @@ function canvasCut() {
 
 //data.sys.sunrise
 //data.sys.sunset
-
 function sunGet(/*checks if sun is up*/) {
   if (
     new Date().getTime() / 1000 > data.sys.sunrise &&
@@ -101,4 +103,44 @@ function sunGet(/*checks if sun is up*/) {
   }
   print("lighting is currently " + light);
   return light;
+}
+function imgSize(){
+  let v
+  if(width<1600){
+    v=50
+  }else if(height < 900){
+    v=50
+  }else{
+    v=100
+  }
+  return v;
+}
+
+//physics math shit made by david, higly inefficient but hopefully works
+const collision =[]
+function gravity(x,y){
+  if(collisionTest(x,y)){}else{
+    y++
+    print (true)
+    return y
+  }
+  print(false)
+  return y
+}
+function collisionTest(x,y){
+  for(let i; i < imgSize(); i++){
+    /*
+    checks collision in img
+    if img has platform 1 pixel beneath, do nothing
+    if not move one down
+    const collision goes x then y meaning const collision mod 1600 = y
+    const collision - (const collision mod 1600) = x
+    this way a grid can be searched up for only the necesary parts 
+    */
+    v = y*1600+i+x
+    if(collision[v]){
+    return(true)
+    }
+  }
+  return(false)
 }
