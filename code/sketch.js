@@ -61,10 +61,9 @@ function ploty(y /*0-900*/) {
 
 //16:9 spille størlse
 //1600 * 900 px 
-
 function draw() {
   fill(0);
-  platforme();
+  platforme(50,800,600);
   mand(xX, yY);
   canvasCut();
   yY=gravity(xX,yY)
@@ -75,9 +74,9 @@ function mand(x, y) {
   image(img, plotx(x), ploty(y - 100), imgSize(), imgSize());
 }
 
-function platforme() {
+function platforme(x,y,length) {
   fill(0, 50, 0);
-  rect(plotx(50), ploty(800), 600, 60);
+  rect(plotx(x), ploty(y), length, 60);
 }
 
 function canvasCut() {
