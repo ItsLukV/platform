@@ -6,7 +6,7 @@ made by:
 
 # malthe stok
 
-# david
+# david ender
 
 credits:
 
