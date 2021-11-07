@@ -129,14 +129,12 @@ function gravity(x,y){
 }
 function collisionTest(x,y){
   for(let i; i < imgSize(); i++){
-    /*
-    checks collision in img
+    /* checks collision in img
     if img has platform 1 pixel beneath, do nothing
     if not move one down
     const collision goes x then y meaning const collision mod 1600 = y
     const collision - (const collision mod 1600) = x
-    this way a grid can be searched up for only the necesary parts 
-    */
+    this way a grid can be searched up for only the necesary parts */
     v = y*1600+i+x
     if(collision[v]){
     return(true)
