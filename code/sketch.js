@@ -4,7 +4,7 @@ let url =
 var data;
 let gravit8
 let xX = 50 //charector x
-let yY = 800 // same but y
+let yY = 750 // same but y
 
 
 function preload() {
@@ -28,34 +28,21 @@ function setBackDrop() {
     fill(45 / 2, 181 / 2, 151 / 2);
     print("dark");
   }
-  rect(plotx(0), ploty(0), plotx(1600), ploty(900));
+  rect((width - 1600) / 2, (height - 900) / 2, 1600, 900);
 }
 
 function setup() {
   sunGet();
   setBackDrop();
+  collisionClear();
 }
 
 function plotx(x /*0-1600*/) {
-  if(width<1600){
-    x = ((width - 1600) / 2 + x)/2;
-  }else if(height<900){
-    x = ((width - 1600) / 2 + x)/2;
-  }else{
-    x = (width - 1600) / 2 + x
-  }
-  print (x)
+  x = (width - 1600) / 2 + x;
   return x;
 }
 function ploty(y /*0-900*/) {
-  if(width<1600){
-    y = ((height - 900) / 2 + y)/2;
-  }else if(height < 900){
-    y = ((height - 900) / 2 + y)/2;
-  }else{
-    y = (height - 900) / 2 + y;
-  }
-  print (y)
+  y = (height - 900) / 2 + y;
   return y;
 }
 
@@ -66,26 +53,27 @@ function draw() {
   platforme(50,800,600);
   mand(xX, yY);
   canvasCut();
-  yY=gravity(xX,yY)
+  yY = gravity(xX,yY)
 }
 
 function mand(x, y) {
   //original 462x642
-  image(img, plotx(x), ploty(y - 100), imgSize(), imgSize());
+  image(img, plotx(x), ploty(y - 100), 100, 100);
 }
 
 function platforme(x,y,length) {
   fill(0, 50, 0);
   rect(plotx(x), ploty(y), length, 60);
+  placeCollision(x,y,length)
 }
 
 function canvasCut() {
   fill(150);
   noStroke();
-  rect(0, 0, plotx(0), height);
-  rect(0, 0, width, ploty(0));
-  rect(plotx(-5), ploty(900), width - plotx(10));
-  rect(plotx(1600), ploty(-5), plotx(0), ploty(900) - ploty(10));
+  rect(0, 0, plotx(0), height); //left 
+  rect(0, 0, width, ploty(0)); //top
+  rect(plotx(-5), ploty(900), width + plotx(10)); //bottom
+  rect(plotx(1600), ploty(-5), plotx(0), ploty(900) + ploty(10)); // right
   stroke(0);
 }
 
@@ -103,22 +91,16 @@ function sunGet(/*checks if sun is up*/) {
   print("lighting is currently " + light);
   return light;
 }
-function imgSize(){
-  let v
-  if(width<1600){
-    v=50
-  }else if(height < 900){
-    v=50
-  }else{
-    v=100
-  }
-  return v;
-}
+
+const collision =[]
 
 //physics math shit made by david, higly inefficient but hopefully works
-const collision =[]
+var gravity = 0;
+var gravitySpeed = 0;
+
 function gravity(x,y){
-  if(collisionTest(x,y)){}else{
+
+  if(!collisionTest(x,y)){    
     y++
     print (true)
     return y
@@ -127,7 +109,7 @@ function gravity(x,y){
   return y
 }
 function collisionTest(x,y){
-  for(let i; i < imgSize(); i++){
+  for(let i; i < 100; i++){
     /* checks collision in img
     if img has platform 1 pixel beneath, do nothing
     if not move one down
@@ -141,3 +123,25 @@ function collisionTest(x,y){
   }
   return(false)
 }
+function placeCollision(x,y,lenght){
+  let v
+  for(let i; i<lenght; i++){
+  v = y*1600+i+x
+  collision[v] = true
+  print(v+" is true")
+  }
+}
+function collisionClear(){
+  for(let i; i<(1600*900+50);i++){
+    collision[i]=false
+  }
+  print("clear complete")
+}
+
+
+
+
+
+
+
+
