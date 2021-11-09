@@ -6,7 +6,6 @@ let gravit8
 let xX = 50 //charector x
 let yY = 750 // same but y
 
-
 function preload() {
   img = loadImage("placeholder.png");
   loadJSON(url, gotData);
@@ -41,6 +40,7 @@ function plotx(x /*0-1600*/) {
   x = (width - 1600) / 2 + x;
   return x;
 }
+
 function ploty(y /*0-900*/) {
   y = (height - 900) / 2 + y;
   return y;
@@ -99,7 +99,6 @@ var gravity = 0;
 var gravitySpeed = 0;
 
 function gravity(x,y){
-
   if(!collisionTest(x,y)){    
     y++
     print (true)
@@ -108,6 +107,7 @@ function gravity(x,y){
   print(false)
   return y
 }
+
 function collisionTest(x,y){
   for(let i; i < 100; i++){
     /* checks collision in img
@@ -123,6 +123,7 @@ function collisionTest(x,y){
   }
   return(false)
 }
+
 function placeCollision(x,y,lenght){
   let v
   for(let i; i<lenght; i++){
@@ -131,12 +132,63 @@ function placeCollision(x,y,lenght){
   print(v+" is true")
   }
 }
+
 function collisionClear(){
   for(let i; i<(1600*900+50);i++){
     collision[i]=false
   }
   print("clear complete")
 }
+
+
+
+function movement() {
+  if (!gravty) {
+    y++;
+  }
+
+  //inspiration: http://jsfiddle.net/loktar/dMYvG/
+  if (keyIsPressed) {
+    if (keyCode === 32) {
+      //OP
+      // keyCode = 0;
+      if (velY > -speed) {
+        velY -= 100;
+      }
+    }
+    if (keyCode === 39) {
+      //Højre
+      // keyCode = 0;
+
+      if (velX < speed) {
+        velX++;
+      }
+    }
+    if (keyCode === 37) {
+      //Venstre
+      // keyCode = 0;
+
+      if (velX > -speed) {
+        velX--;
+      }
+    }
+  }
+
+  velY *= friction;
+  y += velY;
+  velX *= friction;
+  x += velX;
+
+  rect(x, y, 50, 50);
+}
+
+
+
+
+
+
+
+
 
 
 
