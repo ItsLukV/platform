@@ -182,7 +182,21 @@ function movement() {
   rect(x, y, 50, 50);
 }
 
+function scroll() {
 
+  if(xX < 50){
+    scrX = scrX-windowWidth+150
+  } else if(xX+100 > (windowWidth-50)){
+    scrX = scrX+windowWidth-150
+  }
+  
+  while (yY <= windowHeight/8){
+    scrY--
+  }
+  while (yY+100 >= windowHeight-(windowHeight/8)){
+    scrY++
+  }
+  }
 
 
 
