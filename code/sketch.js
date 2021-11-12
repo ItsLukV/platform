@@ -1,13 +1,10 @@
 let url =
-"https://api.openweathermap.org/data/2.5/weather?id=2618424&appid=2a0853a28b198e2d0fb19c11ce2a044a";
+  "https://api.openweathermap.org/data/2.5/weather?id=2618424&appid=2a0853a28b198e2d0fb19c11ce2a044a";
 //api.openweathermap.org/data/2.5/weather?id=2618424&appid=3d458e6af50ae07021a3f6fa1af4bc45
 var data;
-let gravit8
-let xX = 50 //charector x
-let yY = 750 // same but y
-let scrX = 0 // screen ofset from start scene for x
-let scrY = 0 //same but y
-
+let gravit8;
+let scrX = 0; // screen ofset from start scene for x
+let scrY = 0; //same but y
 
 function preload() {
   img = loadImage("placeholder.png");
@@ -36,7 +33,12 @@ function setBackDrop() {
 function setup() {
   sunGet();
   setBackDrop();
-  collisionClear();
+
+  //makes the object
+  firekant = new mand();
+  xborder = new xBorder();
+  yborder = new yBorder();
+  platform = new platform();
 }
 
 function plotx(x /*0-1600*/) {
@@ -50,30 +52,83 @@ function ploty(y /*0-900*/) {
 }
 
 //16:9 spille størlse
-//1600 * 900 px 
+//1600 * 900 px
 function draw() {
   fill(0);
-  platforme(50,800,600);
-  mand(xX, yY);
+  platforme(50, 800, 600);
   canvasCut();
-  yY = gravity(xX,yY)
+
+  xborder.display();
+  yborder.display();
+  platform.display();
+
+  movement();
+  firekant.display();
+  tyndekraft();
+  firekant.x += velX;
+  firekant.y += velY;
 }
 
-function mand(x, y) {
-  //original 462x642
-  image(img, plotx(x), ploty(y - 100), 100, 100);
+function mand() {
+  this.x = 150;
+  this.y = 100;
+  this.size = 50;
+  this.col = color(255);
+
+  this.display = function () {
+    //original 462x642
+    image(img, plotx(x), ploty(y - 100), 100, 100);
+    fill(this.col);
+  };
 }
 
-function platforme(x,y,length) {
+function xBorder() {
+  this.x = 250;
+  this.y = 400;
+  this.h = 1;
+  this.w = 400;
+
+  this.display = function () {
+    rect(plotx(this.x), ploty(this.x), this.w, this.h);
+  };
+}
+function yBorder() {
+  this.x = 250;
+  this.y = 200;
+  this.h = 200;
+  this.w = 1;
+
+  this.display = function () {
+    rect(plotx(this.x), ploty(this.y), this.w, this.h);
+  };
+}
+
+function platform() {
+  this.x = 1000;
+  this.y = 300;
+  this.w = 100;
+  this.h = 50;
+
+  this.display = function () {
+    rect(plotx(this.x), ploty(this.y), this.w, this.h);
+  };
+}
+
+function platforme(x, y, length) {
   fill(0, 50, 0);
   rect(plotx(x), ploty(y), length, 60);
-  placeCollision(x,y,length)
+}
+
+function tyndekraft() {
+  if (gravty) {
+    velY += gravtyacc;
+  }
 }
 
 function canvasCut() {
   fill(150);
   noStroke();
-  rect(0, 0, plotx(0), height); //left 
+  rect(0, 0, plotx(0), height); //left
   rect(0, 0, width, ploty(0)); //top
   rect(plotx(-5), ploty(900), width + plotx(10)); //bottom
   rect(plotx(1600), ploty(-5), plotx(0), ploty(900) + ploty(10)); // right
@@ -95,120 +150,51 @@ function sunGet(/*checks if sun is up*/) {
   return light;
 }
 
-const collision =[]
+// const collision = [];
 
-//physics math shit made by david, higly inefficient but hopefully works
-var gravity = 0;
-var gravitySpeed = 0;
+// function collisionTest(x, y) {
+//   for (let i; i < 100; i++) {
+//     /* checks collision in img
+//     if img has platform 1 pixel beneath, do nothing
+//     if not move one down
+//     const collision goes x then y meaning const collision mod 1600 = y
+//     const collision - (const collision mod 1600) = x
+//     this way a grid can be searched up for only the necesary parts */
+//     v = y * 1600 + i + x;
+//     if (collision[v]) {
+//       return true;
+//     }
+//   }
+//   return false;
+// }
 
-function gravity(x,y){
-  if(!collisionTest(x,y)){    
-    y++
-    print (true)
-    return y
-  }
-  print(false)
-  return y
-}
+// function placeCollision(x, y, lenght) {
+//   let v;
+//   for (let i; i < lenght; i++) {
+//     v = y * 1600 + i + x;
+//     collision[v] = true;
+//     print(v + " is true");
+//   }
+// }
 
-function collisionTest(x,y){
-  for(let i; i < 100; i++){
-    /* checks collision in img
-    if img has platform 1 pixel beneath, do nothing
-    if not move one down
-    const collision goes x then y meaning const collision mod 1600 = y
-    const collision - (const collision mod 1600) = x
-    this way a grid can be searched up for only the necesary parts */
-    v = y*1600+i+x
-    if(collision[v]){
-    return(true)
-    }
-  }
-  return(false)
-}
-
-function placeCollision(x,y,lenght){
-  let v
-  for(let i; i<lenght; i++){
-  v = y*1600+i+x
-  collision[v] = true
-  print(v+" is true")
-  }
-}
-
-function collisionClear(){
-  for(let i; i<(1600*900+50);i++){
-    collision[i]=false
-  }
-  print("clear complete")
-}
-
-
-
-function movement() {
-  if (!gravty) {
-    y++;
-  }
-
-  //inspiration: http://jsfiddle.net/loktar/dMYvG/
-  if (keyIsPressed) {
-    if (keyCode === 32) {
-      //OP
-      // keyCode = 0;
-      if (velY > -speed) {
-        velY -= 100;
-      }
-    }
-    if (keyCode === 39) {
-      //Højre
-      // keyCode = 0;
-
-      if (velX < speed) {
-        velX++;
-      }
-    }
-    if (keyCode === 37) {
-      //Venstre
-      // keyCode = 0;
-
-      if (velX > -speed) {
-        velX--;
-      }
-    }
-  }
-
-  velY *= friction;
-  y += velY;
-  velX *= friction;
-  x += velX;
-
-  rect(x, y, 50, 50);
-}
+// function collisionClear() {
+//   for (let i; i < 1600 * 900 + 50; i++) {
+//     collision[i] = false;
+//   }
+//   print("clear complete");
+// }
 
 function scroll() {
-if(xX < 50){
-  scrX = scrX-windowWidth+150
-} else if(xX+100 > (windowWidth-50)){
-  scrX = scrX+windowWidth-150
+  if (firekant.x < 50) {
+    scrX = scrX - windowWidth + 150;
+  } else if (firekant.x + 100 > windowWidth - 50) {
+    scrX = scrX + windowWidth - 150;
+  }
+
+  while (firekant.y <= windowHeight / 8) {
+    scrY--;
+  }
+  while (firekant.y + 100 >= windowHeight - windowHeight / 8) {
+    scrY++;
+  }
 }
-
-while (yY <= windowHeight/8){
-  scrY--
-}
-while (yY+100 >= windowHeight-(windowHeight/8)){
-  scrY++
-}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
