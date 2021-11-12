@@ -5,6 +5,9 @@ var data;
 let gravit8
 let xX = 50 //charector x
 let yY = 750 // same but y
+let scrX = 0 // screen ofset from start scene for x
+let scrY = 0 //same but y
+
 
 function preload() {
   img = loadImage("placeholder.png");
