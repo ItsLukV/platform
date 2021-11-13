@@ -56,7 +56,6 @@ function ploty(y /*0-900*/) {
 function draw() {
   fill(0);
   platforme(50, 800, 600);
-  canvasCut();
 
   xborder.display();
   yborder.display();
