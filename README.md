@@ -2,11 +2,11 @@
 
 made by:
 
-# lukas vranic
+# [Dendersen](https://github.com/dendersen)
 
-# malthe stok
+# [Monkey](https://github.com/Business-Monkey)
 
-# david ender
+# [Lukas](https://github.com/ItsLukV)
 
 credits:
 
