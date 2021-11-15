@@ -1,3 +1,6 @@
+/*
+movement
+*/
 var x = 0,
   y = 100,
   velY = 0,
@@ -10,7 +13,7 @@ var x = 0,
   BundCol = true,
   moveSpeed = 5;
 
-var firekant, xborder, yborder, platform, platform2;
+var mand, platform, platform2;
 
 function movement() {
   //inspiration: http://jsfiddle.net/loktar/dMYvG/
@@ -28,7 +31,6 @@ function movement() {
       //Højre
       if (velX < speed) {
         velX += moveSpeed;
-        print(velX);
       }
     }
     if (keyIsDown(LEFT_ARROW)) {
