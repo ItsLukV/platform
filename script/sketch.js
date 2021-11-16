@@ -50,7 +50,7 @@ function Platform() {
     rect(plotx(this.x), ploty(this.y), this.w, this.h);
   };
   this.move = function () {
-    print(plotx(this.x),ploty(this.y))
+    print(plotx(this.x), ploty(this.y));
     if (moveplatform) {
       if (plotx(this.x) > plotx(0 - this.w)) {
         this.x -= 10;
