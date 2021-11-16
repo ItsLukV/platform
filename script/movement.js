@@ -13,7 +13,7 @@ var x = 0,
   BundCol = true,
   moveSpeed = 5;
 
-var mand, platform, platform2;
+var mand, platform;
 
 function movement() {
   //inspiration: http://jsfiddle.net/loktar/dMYvG/
@@ -22,6 +22,7 @@ function movement() {
       if (keyIsDown(UP_ARROW)) {
         //32
         //OP
+        print(velY);
         if (velY > -speed) {
           velY -= jumpH;
         }

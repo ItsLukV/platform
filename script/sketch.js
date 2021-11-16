@@ -37,10 +37,12 @@ function mand() {
   };
 }
 
-function platform() {
-  this.x = 150;
-  this.y = 300;
-  this.w = 100;
+platform = [];
+
+function Platform() {
+  this.x = 150 + random(1, width);
+  this.y = 250;
+  this.w = 200;
   this.h = 50;
 
   this.display = function () {

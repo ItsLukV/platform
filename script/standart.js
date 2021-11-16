@@ -15,16 +15,23 @@ function setup() {
 
   //makes the object
   mand = new mand();
-  platform = new platform();
+  for (var i = 0; i < 2; i++) {
+    platform[i] = new Platform();
+  }
   canvasCut();
 }
 
 function draw() {
   fill(0);
   setBackDrop(false);
-  platform.display();
+  for (var i = 0; i < 2; i++) {
+    platform[i].display();
+  }
   movement();
-  collision(mand, platform);
+
+  // collision(mand, platform[0]);
+  // collision(mand, platform[1]);
+
   mand.display();
 
   tyndekraft();
