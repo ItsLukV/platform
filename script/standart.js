@@ -26,11 +26,12 @@ function draw() {
   setBackDrop(false);
   for (var i = 0; i < 2; i++) {
     platform[i].display();
+    platform[i].move();
   }
   movement();
 
-  // collision(mand, platform[0]);
-  // collision(mand, platform[1]);
+  collision(mand, platform[0]);
+  collision(mand, platform[1]);
 
   mand.display();
 

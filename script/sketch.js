@@ -40,14 +40,25 @@ function mand() {
 platform = [];
 
 function Platform() {
-  this.x = 150 + random(1, width);
-  this.y = 250;
+  this.x = random(1, width);
+  this.y = random(1, height);
   this.w = 200;
   this.h = 50;
 
   this.display = function () {
     fill(0, 50, 0);
     rect(plotx(this.x), ploty(this.y), this.w, this.h);
+  };
+
+  this.move = function () {
+    if (moveplatform) {
+      if (plotx(this.x) > plotx(0 - this.w)) {
+        this.x -= 10;
+      } else {
+        this.x = width;
+        this.y = random(1, height);
+      }
+    }
   };
 }
 

@@ -11,7 +11,8 @@ var x = 0,
   gravtyacc = 2,
   jumpH = 50,
   BundCol = true,
-  moveSpeed = 5;
+  moveSpeed = 5,
+  moveplatform = true;
 
 var mand, platform;
 
