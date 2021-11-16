@@ -40,8 +40,8 @@ function mand() {
 platform = [];
 
 function Platform() {
-  this.x = random(1, width);
-  this.y = random(1, height);
+  this.x = random(1, 1600);
+  this.y = random(1, 900 - this.h);
   this.w = 200;
   this.h = 50;
 
@@ -55,8 +55,8 @@ function Platform() {
       if (plotx(this.x) > plotx(0 - this.w)) {
         this.x -= 10;
       } else {
-        this.x = width;
-        this.y = random(1, height);
+        this.x = 1600;
+        this.y = random(1, 900 - this.h);
       }
     }
   };

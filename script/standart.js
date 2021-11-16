@@ -15,7 +15,7 @@ function setup() {
 
   //makes the object
   mand = new mand();
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < 50; i++) {
     platform[i] = new Platform();
   }
   canvasCut();
@@ -24,7 +24,7 @@ function setup() {
 function draw() {
   fill(0);
   setBackDrop(false);
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < 50; i++) {
     platform[i].display();
     platform[i].move();
   }
@@ -38,5 +38,5 @@ function draw() {
   tyndekraft();
   mand.x += velX;
   mand.y += velY;
-  canvasCut();
+  // canvasCut();
 }
