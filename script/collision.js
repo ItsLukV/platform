@@ -9,10 +9,10 @@ collisionkl
 
 function collision(player, object) {
   if (
-    player.y + player.size > object.y && //over
-    player.size + player.y < object.y + object.h // //under
-    // player.x + player.size > object.x && //venstre
-    // player.x < object.x + object.w
+    player.y + player.size > object.y //over
+    && player.size + player.y < object.y + object.h  // //under
+    // && player.x + player.size > object.x //højre
+    // && player.x < object.x + object.w //venstre
   ) {
     BundCol = true;
     gravty = false;
