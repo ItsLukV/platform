@@ -27,7 +27,7 @@ function draw() {
   setBackDrop(false);
   for (var i = 0; i < platNum; i++) {
     platform[i].display();
-    platform[i].move();
+    //platform[i].move();
   }
   movement();
   for(var i = 0; i < platNum; i++){
