@@ -9,9 +9,9 @@ var x = 0,
   friction = 0.8,
   gravty = true,
   gravtyacc = 2,
-  jumpH = 200,
+  jumpH = 130,
   BundCol = false,
-  moveSpeed = 5,
+  moveSpeed = 5;
   moveplatform = true;
 
 var mand, platform;
