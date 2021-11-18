@@ -3,6 +3,8 @@ var level = 0
 var point = 0
 var bonusNum = null
 var levelStore = null
+var levlPoint = 0
+platformChange = []
 
 //0 = turtorial
 function levelChange() {
@@ -38,12 +40,18 @@ function levelLogic() {
     mand.col =- 5
     
     //platform stuff
-    for(let i= 0; i > platNum; i++){
+    for(let i = 0; i > platNum; i++){
         if(platform[i].w > 100){
-        platform[i].w =- random(0,2)
-        platform[i].h
+        platformChange [i] = math.floor(random(0,2))
+        platformChange [i+100] = math.floor(random(0,2))
+        platform[i].w =- platformChange [i]
+        platform[i].h =- platformChange [i+100]
         }
-        
+    }
+    
+    //score prep
+    if(levelPoint > level){
+
     }
 }
 
