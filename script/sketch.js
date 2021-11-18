@@ -44,9 +44,12 @@ function Platform() {
   this.h = 50;
   this.x = random(1, 1600);
   this.y = random(1, 900 - this.h);
+  this.colR = 0
+  this.colG = 50
+  this.colB = 0
 
   this.display = function () {
-    fill(0, 50, 0);
+    fill(this.colR, this.colG, this.colB);
     rect(plotx(this.x), ploty(this.y), this.w, this.h);
   };
   this.move = function () {
