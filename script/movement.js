@@ -9,8 +9,8 @@ var x = 0,
   friction = 0.8,
   gravty = true,
   gravtyacc = 2,
-  jumpH = 50,
-  BundCol = true,
+  jumpH = 200,
+  BundCol = false,
   moveSpeed = 5,
   moveplatform = true;
 
@@ -20,10 +20,10 @@ function movement() {
   //inspiration: http://jsfiddle.net/loktar/dMYvG/
   if (keyIsPressed) {
     if (BundCol == true) {
+      BundCol = !BundCol;
       if (keyIsDown(UP_ARROW)) {
         //32
         //OP
-        print(velY);
         if (velY > -speed) {
           velY -= jumpH;
         }

@@ -3,7 +3,7 @@ preload()
 setup()
 draw()
 */
-var platNum = 10
+var platNum = 10;
 
 function preload() {
   img = loadImage("placeholder.png");
@@ -27,12 +27,12 @@ function draw() {
   setBackDrop(false);
   for (var i = 0; i < platNum; i++) {
     platform[i].display();
-    //platform[i].move();
+    platform[i].move();
+    collision(mand, platform[i]);
   }
   movement();
-  for(var i = 0; i < platNum; i++){
-  collision(mand, platform[i]);
-  }
+  // for(var i = 0; i < platNum; i++){
+  // }
   mand.display();
 
   tyndekraft();
