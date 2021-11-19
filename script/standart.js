@@ -3,6 +3,7 @@ preload()
 setup()
 draw()
 */
+var platNum = 10;
 
 function preload() {
   img = loadImage("placeholder.png");
@@ -15,20 +16,27 @@ function setup() {
 
   //makes the object
   mand = new mand();
-  platform = new platform();
+  for (var i = 0; i < platNum; i++) {
+    platform[i] = new Platform();
+  }
   canvasCut();
 }
 
 function draw() {
   fill(0);
   setBackDrop(false);
-  platform.display();
+  for (var i = 0; i < platNum; i++) {
+    platform[i].display();
+    platform[i].move();
+    collision(mand, platform[i]);
+  }
   movement();
-  collision(mand, platform);
+  // for(var i = 0; i < platNum; i++){
+  // }
   mand.display();
 
   tyndekraft();
   mand.x += velX;
   mand.y += velY;
-  canvasCut();
+  // canvasCut();
 }

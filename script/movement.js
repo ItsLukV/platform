@@ -9,16 +9,18 @@ var x = 0,
   friction = 0.8,
   gravty = true,
   gravtyacc = 2,
-  jumpH = 50,
-  BundCol = true,
+  jumpH = 130,
+  BundCol = false,
   moveSpeed = 5;
+  moveplatform = true;
 
-var mand, platform, platform2;
+var mand, platform;
 
 function movement() {
   //inspiration: http://jsfiddle.net/loktar/dMYvG/
   if (keyIsPressed) {
     if (BundCol == true) {
+      BundCol = !BundCol;
       if (keyIsDown(UP_ARROW)) {
         //32
         //OP

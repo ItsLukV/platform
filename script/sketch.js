@@ -31,21 +31,37 @@ function mand() {
     //original 462x642
     fill(this.col);
     rect(plotx(this.x), ploty(this.y), this.size, this.size);
-    // image(img, plotx(this.x), ploty(this.y), this.size, this.size);
+    //image(img, plotx(this.x), ploty(this.y), this.size, this.size);
     line(plotx(this.x), 0, plotx(this.x), windowHeight);
     line(0, ploty(this.y), windowWidth, ploty(this.y));
   };
 }
 
-function platform() {
-  this.x = 150;
-  this.y = 300;
-  this.w = 100;
+platform = [];
+
+function Platform() {
+  this.w = 200;
   this.h = 50;
+  this.x = random(1, 1600);
+  this.y = random(1, 900 - this.h);
+  this.colR = 0
+  this.colG = 50
+  this.colB = 0
 
   this.display = function () {
-    fill(0, 50, 0);
+    fill(this.colR, this.colG, this.colB);
     rect(plotx(this.x), ploty(this.y), this.w, this.h);
+  };
+  this.move = function () {
+    print(plotx(this.x), ploty(this.y));
+    if (moveplatform) {
+      if (plotx(this.x) > plotx(0 - this.w)) {
+        this.x -= 10;
+      } else {
+        this.x = 1600;
+        this.y = random(1, 900 - this.h);
+      }
+    }
   };
 }
 
