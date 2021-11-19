@@ -5,9 +5,17 @@ var bonusNum = null
 var levelStore = null
 var levlPoint = 0
 var pointModify = 1
+var startTime = 0
+var turtorial = true
+// var scoreboard = JSON.Parse(scoreboardJSON);
+// var scoreboardJSON = //the way to get a JSON from a server
 
 //0 = turtorial
 function levelChange() {
+    if(level == 0){
+        turtorial = false
+        timer("start")
+    }
     if (level == "bonus"){
         bonusLevel()
     }else{
@@ -59,22 +67,38 @@ function levelLogic() {
     }
 }
 
-function pointMultiplier(platformMulti,levelMulti) {
-    if(platformMulti==!null){
+pointMultiplier()
+function pointMultiplier(platformMulti,[levelMulti]) {
+    if(platformMulti != null){
         pointModify =+ platformMulti * 1,01
         return
     }
-    if(levelMulti==!null) {
-        pointModify =+ levelMulti *1,3
+    if(levelMulti != null) {
+        pointModify =+ levelMulti*1,3
     }
 }
 
-function scoreboard() {
-    
+function timer(go){
+    if(go == "start"){
+        return(new Date().getTime())
+    }else if(go == "end"){
+        return(startTime-(new Date().getTime()))
+    }
+}
+
+function score(){
+    return(
+        (((timer("end")-startTime)-((timer("end")-startTime)%1000))/1000)*pointModify
+    )
+}
+
+function scoreboard(score) {
+    //will use json on HTX.mtdm.dk
+    //still need to figure out how
 }
 
 function gameOver() {
-    
+    scoreboard(score())
 }
 
 function bonusLevel(){
