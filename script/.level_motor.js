@@ -4,7 +4,7 @@ var point = 0
 var bonusNum = null
 var levelStore = null
 var levlPoint = 0
-platformChange = []
+var pointModify = 1
 
 //0 = turtorial
 function levelChange() {
@@ -14,7 +14,7 @@ function levelChange() {
         if (mand.y < 5){
             level -= 5
             if(level < 0){
-                endGame()
+                gameOver()
                 return
             }else{
                 levelLogic()
@@ -26,6 +26,7 @@ function levelChange() {
             levelLogic()
             return
         } else if(mand.x < 30){
+            levelStore = level
             level --
             levelLogic()
             return
@@ -41,22 +42,31 @@ function levelLogic() {
     
     //platform stuff
     for(let i = 0; i > platNum; i++){
+        let platformChange = 0
         if(platform[i].w > 100){
-        platformChange [i] = math.floor(random(0,2))
-        platformChange [i+100] = math.floor(random(0,2))
-        platform[i].w =- platformChange [i]
-        platform[i].h =- platformChange [i+100]
+            platformChange [i] = math.floor(random(0,2))
+            platformChange [i+256] = math.floor(random(0,2))
+            platform[i].w =- platformChange [i]
+            platform[i].h =- platformChange [i+256]
+            pointMultiplier(platformChange[i],null)
+            pointMultiplier(platformChange[i+256],null)
+        }else{
+            pointModify =+ 0,03
         }
-    }
-    
-    //score prep
-    if(levelPoint > level){
-
+        if(level != levelStore){
+            pointMultiplier(null,(level-levelStore))
+        }
     }
 }
 
-function pointMultiplier() {
-    
+function pointMultiplier(platformMulti,levelMulti) {
+    if(platformMulti==!null){
+        pointModify =+ platformMulti * 1,01
+        return
+    }
+    if(levelMulti==!null) {
+        pointModify =+ levelMulti *1,3
+    }
 }
 
 function scoreboard() {
