@@ -39,4 +39,5 @@ function draw() {
   mand.x += velX;
   mand.y += velY;
   // canvasCut();
+  levelChange()
 }

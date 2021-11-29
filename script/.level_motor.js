@@ -6,15 +6,20 @@ var levlPoint = 0;
 var pointModify = 1;
 var startTime = 0;
 var turtorial = true;
+var turtorialTime = 0
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
 
 //0 = turtorial
 function levelChange() {
   if (level == 0) {
-    turtorial = false;
+    turtorial = true;
     timer("start");
   } else {
+    if (turtorial = true){
+      turtorial = false
+      turtorialTime = timer("end")
+    }
     if (mand.y < 5) {
       level -= 5;
       if (level < 0) {
@@ -86,7 +91,8 @@ function pointMultiplier(platformMulti, [levelMulti]) {
 
 function timer(go) {
   if (go == "start") {
-    return new Date().getTime();
+    startTime = new Date().getTime();
+    return (startTime)
   } else if (go == "end") {
     return startTime - new Date().getTime();
   }
@@ -94,9 +100,9 @@ function timer(go) {
 
 function score() {
   return (
-    ((timer("end") - startTime - ((timer("end") - startTime) % 1000)) / 1000) *
+    (timer("end") - startTime - ((timer("end") - startTime) % 1000))-((turtorialTime-((turtorial%1000)/1000) / 1000)/2) *
     pointModify
-    );
+    )
   }
 
 function scoreboard(score) {
