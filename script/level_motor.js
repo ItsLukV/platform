@@ -1,3 +1,5 @@
+//90% david kode
+
 var level = 0;
 var point = 0;
 var bonusNum = null;
@@ -7,6 +9,7 @@ var pointModify = 1;
 var startTime = 0;
 var turtorial = true;
 var turtorialTime = 0
+var loadedLevels
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
 
@@ -44,6 +47,7 @@ function levelChange() {
       } else {
         levelLogic(false); // loads level if above level 0
         return;
+      }
     }
   }
 }
@@ -56,54 +60,55 @@ function levelLogic(increase) {
   
   //platform stuff
   if(increase){ // if level increased
-    for (let i = 0; i > platNum; i++) {
-      let platformChange = 0; // 
-      if (platform[i].w > 100) { //changes the size of each platform individually
-        platformChange[i] = math.floor(random(0, 2));
-        platformChange[i + 256] = math.floor(random(0, 2));
-        platform[i].w = -platformChange[i];
-        platform[i].h = -platformChange[i + 256]; //Ikke for små
-        pointMultiplier(platformChange[i], null); // gives more points for smaller plaforms
-        pointMultiplier(platformChange[i + 256], null);
-      } else {
-        (pointModify += 0.03); // if the platform is already at minimum size give extra multiplier
+    if (!loadedLevels[level]){
+      for (let i = 0; i > platNum; i++) {
+        let platformChange = 0; // 
+        if (platform[i].w > 100) { //changes the size of each platform individually
+          platformChange[i] = math.floor(random(0, 2));
+          platformChange[i + 256] = math.floor(random(0, 2));
+          platform[i].w = -platformChange[i];
+          platform[i].h = -platformChange[i + 256]; //Ikke for små
+          pointMultiplier(platformChange[i], null); // gives more points for smaller plaforms
+          pointMultiplier(platformChange[i + 256], null);
+        } else {
+          (pointModify += 0.03); // if the platform is already at minimum size give extra multiplier
+        }
+      }
+      if (level != levelStore) { //checks if the level has changed
+        pointMultiplier(null, level - levelStore);// sets a level multiplier
       }
     }
-    if (level != levelStore) {
-      pointMultiplier(null, level - levelStore);
-    }
   }else{ // if level didn't increase
-    platNum = levelDifficulty[level].platforms
-    pointModify = levelDifficulty[level].multi
-    for(let i = 0; i < platNum; i++){
+    platNum = levelDifficulty[level].platforms //loads the number of platforms for this level
+    pointModify = levelDifficulty[level].multi//loads the multiplier for the level
+    for(let i = 0; i < platNum; i++){ //loads the size of all the platfroms 
     levelDifficulty[level].specPlatH[i]
     levelDifficulty[level].specPlatw[i]
     }
   }
 }
 
-pointMultiplier();
 function pointMultiplier(platformMulti, levelMulti) {
-  if (platformMulti != null) {
-    (pointModify = +platformMulti * 1), 01;
+  if (platformMulti != null) { //checks if platform math
+    (pointModify +=platformMulti * 1.01);
     return;
   }
-  if (levelMulti != null) {
-    (pointModify = +levelMulti * 1), 3;
+  if (levelMulti != null) {//checks if level math
+    (pointModify +=levelMulti * 1.3);
   }
 }
 
-function timer(go) {
-  if (go == "start") {
+function timer(go) {//makes a timer to calculate points at the end
+  if (go == "start") {//gets a start time for the program
     startTime = new Date().getTime();
     return (startTime)
-  } else if (go == "end") {
+  } else if (go == "end") {//gets the time between start and 'end'
     return startTime - new Date().getTime();
   }
 }
 
 function score() {
-  return (
+  return (//gives a score based on time and multiplier
     (timer("end") - startTime - ((timer("end") - startTime) % 1000))-((turtorialTime-((turtorial%1000)/1000) / 1000)/2) *
     pointModify
     )
@@ -112,14 +117,15 @@ function score() {
 function scoreboard(score) {
   //will use json on HTX.mtdm.dk
   //still need to figure out how
+  //DOES NOT FUNCTION
 }
 
-function gameOver() {
-  scoreboard(score());
+function gameOver() {//will end game
+  scoreboard(score());//generates a score 
 }
 
 
-const levelDifficulty = []
+const levelDifficulty = [] // 
 function saveDifficulty(increase){
   if(increase){
     if(levelDifficulty[level] != null){

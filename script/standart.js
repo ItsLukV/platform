@@ -1,3 +1,5 @@
+//a mix of everyones code
+
 /*
 preload()
 setup()
