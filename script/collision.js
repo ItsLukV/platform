@@ -21,7 +21,6 @@ function collision(player, object) {
   } else {
     gravty = true;
   }
-  print(BundCol);
 }
 
 function freedome(object) {

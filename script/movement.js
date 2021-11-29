@@ -1,20 +1,7 @@
 /*
 movement
 */
-var x = 0,
-  y = 100,
-  velY = 0,
-  velX = 0,
-  speed = 2,
-  friction = 0.8,
-  gravty = true,
-  gravtyacc = 2,
-  jumpH = 130,
-  BundCol = false,
-  moveSpeed = 5;
-  moveplatform = true;
 
-var mand, platform;
 
 function movement() {
   //inspiration: http://jsfiddle.net/loktar/dMYvG/

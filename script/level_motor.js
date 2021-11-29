@@ -12,63 +12,67 @@ var turtorialTime = 0
 
 //0 = turtorial
 function levelChange() {
-  if (level == 0) {
+  if (level == 0) {//chacks if you are in level 0
     turtorial = true;
     timer("start");
   } else {
     if (turtorial = true){
       turtorial = false
-      turtorialTime = timer("end")
+      turtorialTime = timer("end")//sets turtorial penalty
     }
-    if (mand.y < 5) {
+    if (mand.y < 5) { //decrease level if man is leaving level (bottom)
       level -= 5;
       if (level < 0) {
-        gameOver();
+        gameOver(); // ends game if below level 0
         return;
       } else {
-        levelLogic(false);
+        levelLogic(false); // loads level if above level 0
         return;
       }
     }
-    if (mand.x > 1550) {
+    if (mand.x > 1550) { //increases level if on right side of screen
       level++;
       levelLogic(true);
       saveDifficulty(true)
       return;
-    } else if (mand.x < 30) {
+    } else if (mand.x < 30) { //decrease level if man is leaving level (left side)
       levelStore = level;
       level--;
-      levelLogic(false);
-      return;
+      if (level < 0) {
+        gameOver(); // ends game if below level 0
+        return;
+      } else {
+        levelLogic(false); // loads level if above level 0
+        return;
     }
   }
 }
 
 function levelLogic(increase) {
   //player stuff
-  mand.x = 150;
+  mand.x = 150; // makes sure player is in starting possition for the level
   mand.y = 100;
-  mand.col = -5;
+  mand.col = -5; // cahnges player color to differentiate number of level changes
   
   //platform stuff
-  if(increase){
+  if(increase){ // if level increased
     for (let i = 0; i > platNum; i++) {
-      let platformChange = 0;
-      if (platform[i].w > 100) {
+      let platformChange = 0; // 
+      if (platform[i].w > 100) { //changes the size of each platform individually
         platformChange[i] = math.floor(random(0, 2));
         platformChange[i + 256] = math.floor(random(0, 2));
         platform[i].w = -platformChange[i];
         platform[i].h = -platformChange[i + 256]; //Ikke for små
-        pointMultiplier(platformChange[i], null);
+        pointMultiplier(platformChange[i], null); // gives more points for smaller plaforms
         pointMultiplier(platformChange[i + 256], null);
       } else {
-        (pointModify = +0), 03;
-      }
-      if (level != levelStore) {
-        pointMultiplier(null, level - levelStore);
+        (pointModify += 0.03); // if the platform is already at minimum size give extra multiplier
       }
     }
-  }else{
+    if (level != levelStore) {
+      pointMultiplier(null, level - levelStore);
+    }
+  }else{ // if level didn't increase
     platNum = levelDifficulty[level].platforms
     pointModify = levelDifficulty[level].multi
     for(let i = 0; i < platNum; i++){
@@ -79,7 +83,7 @@ function levelLogic(increase) {
 }
 
 pointMultiplier();
-function pointMultiplier(platformMulti, [levelMulti]) {
+function pointMultiplier(platformMulti, levelMulti) {
   if (platformMulti != null) {
     (pointModify = +platformMulti * 1), 01;
     return;
@@ -118,7 +122,7 @@ function gameOver() {
 const levelDifficulty = []
 function saveDifficulty(increase){
   if(increase){
-    if(levelDifficulty[level] != undefined){
+    if(levelDifficulty[level] != null){
       levelDifficulty[level] = new DifficultyStorage()
     }
   }

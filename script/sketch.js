@@ -8,6 +8,21 @@ platform()
 tyndekraft()
 */
 
+var x = 0, //Dette er players x start postion
+  y = 100, //Dette er players y start postion
+  velY = 0, //Dette er players y start hastighed
+  velX = 0, //Dette er players x start hastighed
+  speed = 100, //Dette er max hastighed (hvis jeg husker rigtig)
+  friction = 0.8, //Dette friction player har
+  gravty = true, //Dette bestemer om tyndekrafen skal være til eller fra
+  gravtyacc = 2, //Dette er tyndekraft acceleration 
+  jumpH = 130, //Dette er, hvor højt playen hopper
+  BundCol = false, //Hvis denne er true er der collstion på bund af player
+  moveSpeed = 5; //Dette bestemmer platform hastighed
+  moveplatform = true; //Dette bestemmer om platform skal bevæge sig
+
+var mand, platform; //Dette caller player og platform
+
 function plotx(x /*0-1600*/) {
   x = (width - 1600) / 2 + x;
   return x;
@@ -53,7 +68,6 @@ function Platform() {
     rect(plotx(this.x), ploty(this.y), this.w, this.h);
   };
   this.move = function () {
-    print(plotx(this.x), ploty(this.y));
     if (moveplatform) {
       if (plotx(this.x) > plotx(0 - this.w)) {
         this.x -= 10;
