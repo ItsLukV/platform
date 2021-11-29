@@ -14,9 +14,6 @@ function levelChange() {
   if (level == 0) {
     turtorial = false;
     timer("start");
-  }
-  if (level == "bonus") {
-    bonusLevel();
   } else {
     if (mand.y < 5) {
       level -= 5;
@@ -24,44 +21,54 @@ function levelChange() {
         gameOver();
         return;
       } else {
-        levelLogic();
+        levelLogic(false);
         return;
       }
     }
     if (mand.x > 1550) {
       level++;
-      levelLogic();
+      levelLogic(true);
+      saveDifficulty(true)
       return;
     } else if (mand.x < 30) {
       levelStore = level;
       level--;
-      levelLogic();
+      levelLogic(false);
       return;
     }
   }
 }
 
-function levelLogic() {
+function levelLogic(increase) {
   //player stuff
   mand.x = 150;
   mand.y = 100;
   mand.col = -5;
-
+  
   //platform stuff
-  for (let i = 0; i > platNum; i++) {
-    let platformChange = 0;
-    if (platform[i].w > 100) {
-      platformChange[i] = math.floor(random(0, 2));
-      platformChange[i + 256] = math.floor(random(0, 2));
-      platform[i].w = -platformChange[i];
-      platform[i].h = -platformChange[i + 256]; //Ikke for små
-      pointMultiplier(platformChange[i], null);
-      pointMultiplier(platformChange[i + 256], null);
-    } else {
-      (pointModify = +0), 03;
+  if(increase){
+    for (let i = 0; i > platNum; i++) {
+      let platformChange = 0;
+      if (platform[i].w > 100) {
+        platformChange[i] = math.floor(random(0, 2));
+        platformChange[i + 256] = math.floor(random(0, 2));
+        platform[i].w = -platformChange[i];
+        platform[i].h = -platformChange[i + 256]; //Ikke for små
+        pointMultiplier(platformChange[i], null);
+        pointMultiplier(platformChange[i + 256], null);
+      } else {
+        (pointModify = +0), 03;
+      }
+      if (level != levelStore) {
+        pointMultiplier(null, level - levelStore);
+      }
     }
-    if (level != levelStore) {
-      pointMultiplier(null, level - levelStore);
+  }else{
+    platNum = levelDifficulty[level].platforms
+    pointModify = levelDifficulty[level].multi
+    for(let i = 0; i < platNum; i++){
+    levelDifficulty[level].specPlatH[i]
+    levelDifficulty[level].specPlatw[i]
     }
   }
 }
@@ -89,8 +96,8 @@ function score() {
   return (
     ((timer("end") - startTime - ((timer("end") - startTime) % 1000)) / 1000) *
     pointModify
-  );
-}
+    );
+  }
 
 function scoreboard(score) {
   //will use json on HTX.mtdm.dk
@@ -101,4 +108,21 @@ function gameOver() {
   scoreboard(score());
 }
 
-function bonusLevel() {}
+
+const levelDifficulty = []
+function saveDifficulty(increase){
+  if(increase){
+    if(levelDifficulty[level] != undefined){
+      levelDifficulty[level] = new DifficultyStorage()
+    }
+  }
+}
+
+function DifficultyStorage(){
+  this.platforms = platNum
+  this.multi = pointModify
+  for(let i = 0; i<platNum; i++){
+    this.specPlatH[i] = platform[i].h
+    this.specPlatW[i] = platform[i].w
+  }
+}
