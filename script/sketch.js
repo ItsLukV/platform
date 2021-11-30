@@ -48,7 +48,7 @@ function mand() {
     //original 462x642
     fill(this.col);
     rect(plotx(this.x), ploty(this.y), this.size, this.size);
-    //image(img, plotx(this.x), ploty(this.y), this.size, this.size);
+    // image(img, plotx(this.x), ploty(this.y), this.size, this.size);
     if (turtorial == true) {
       line(plotx(this.x), 0, plotx(this.x), windowHeight);
       line(0, ploty(this.y), windowWidth, ploty(this.y));
