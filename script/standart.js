@@ -6,6 +6,7 @@ setup()
 draw()
 */
 var platNum = 10;
+var state = "gameStart"
 
 function preload() {
   img = loadImage("placeholder.png");
@@ -25,6 +26,14 @@ function setup() {
 }
 
 function draw() {
+  if(running==true){
+    game()
+  }else{
+    screenSelect()
+  }
+}
+
+function game(){
   fill(0);
   setBackDrop(false);
   for (var i = 0; i < platNum; i++) {
@@ -42,4 +51,12 @@ function draw() {
   mand.y += velY;
   // canvasCut();
   levelChange()
+}
+
+function screenSelect(){
+  if(state == "gamestart"){
+    setBackDrop(false)
+  }else if (state == "gameover"){
+    
+  }
 }
