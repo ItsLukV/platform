@@ -1,4 +1,4 @@
-//90% david kode
+//95% david kode 5% lukas code
 
 var level = 0;
 var point = 0;
@@ -36,7 +36,7 @@ function levelChange() {
     if (mand.x > 1550) { //increases level if on right side of screen
       level++;
       levelLogic(true);
-      saveDifficulty(true)
+      saveDifficulty()
       return;
     } else if (mand.x < 30) { //decrease level if man is leaving level (left side)
       levelStore = level;
@@ -121,24 +121,23 @@ function scoreboard(score) {
 }
 
 function gameOver() {//will end game
+  
   scoreboard(score());//generates a score 
 }
 
 
-const levelDifficulty = [] // 
-function saveDifficulty(increase){
-  if(increase){
-    if(levelDifficulty[level] != null){
-      levelDifficulty[level] = new DifficultyStorage()
-    }
+const levelDifficulty = [] // stores levels
+function saveDifficulty(){ // creates a saved level
+  if(levelDifficulty[level] != null){
+    levelDifficulty[level] = new DifficultyStorage()
   }
 }
 
-function DifficultyStorage(){
-  this.platforms = platNum
-  this.multi = pointModify
-  for(let i = 0; i<platNum; i++){
-    this.specPlatH[i] = platform[i].h
-    this.specPlatW[i] = platform[i].w
+function DifficultyStorage(){ //contains level info
+  this.platforms = platNum //number of platform
+  this.multi = pointModify // poin modifier
+  for(let i = 0; i<this.platforms; i++){ //platform sizes
+    this.specPlatH[i] = platform[i].h //højden
+    this.specPlatW[i] = platform[i].w //breden
   }
 }
