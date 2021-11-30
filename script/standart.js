@@ -6,7 +6,8 @@ setup()
 draw()
 */
 var platNum = 10;
-var state = "gameStart"
+var state = "gameStart";
+var running = false;
 
 function preload() {
   img = loadImage("placeholder.png");
@@ -26,14 +27,15 @@ function setup() {
 }
 
 function draw() {
-  if(running==true){
-    game()
-  }else{
-    screenSelect()
+  if (running == true) {
+    game();
+  } else {
+    menu();
+    screenSelect();
   }
 }
 
-function game(){
+function game() {
   fill(0);
   setBackDrop(false);
   for (var i = 0; i < platNum; i++) {
@@ -49,14 +51,28 @@ function game(){
   tyndekraft();
   mand.x += velX;
   mand.y += velY;
-  // canvasCut();
-  levelChange()
+  canvasCut();
+
+  levelChange();
 }
 
-function screenSelect(){
-  if(state == "gamestart"){
-    setBackDrop(false)
-  }else if (state == "gameover"){
-    
+function screenSelect() {
+  if (state == "gamestart") {
+    setBackDrop(false);
+  } else if (state == "gameover") {
+  }
+}
+var Menu = true;
+function menu() {
+  if (Menu) {
+    knap = createButton("Start");
+    knap.position(plotx(800 - 250), ploty(450 - 125));
+    knap.mousePressed(tryk);
+    Menu = !Menu;
+  }
+  function tryk() {
+    running = true;
+    knap.hide();
+    print("Start");
   }
 }

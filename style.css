@@ -7,3 +7,11 @@ body {
 canvas {
   display: block;
 }
+
+button {
+  font-size: 150px;
+  width: 500px;
+  height: 250px;
+  background-color: #339966;
+  border: black 0.01em solid;
+}

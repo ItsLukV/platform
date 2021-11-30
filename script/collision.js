@@ -1,5 +1,4 @@
-//95% lukas 5% internet
-
+//100% David og hans far
 /*
 collision
 collisionkl
