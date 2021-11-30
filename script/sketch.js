@@ -17,11 +17,11 @@ var x = 0, //Dette er players x start postion
   speed = 100, //Dette er max hastighed (hvis jeg husker rigtig)
   friction = 0.8, //Dette friction player har
   gravty = true, //Dette bestemer om tyndekrafen skal være til eller fra
-  gravtyacc = 2, //Dette er tyndekraft acceleration 
+  gravtyacc = 2, //Dette er tyndekraft acceleration
   jumpH = 130, //Dette er, hvor højt playen hopper
   BundCol = false, //Hvis denne er true er der collstion på bund af player
   moveSpeed = 5; //Dette bestemmer platform hastighed
-  moveplatform = true; //Dette bestemmer om platform skal bevæge sig
+moveplatform = true; //Dette bestemmer om platform skal bevæge sig
 
 var mand, platform; //Dette caller player og platform
 
@@ -49,8 +49,22 @@ function mand() {
     fill(this.col);
     rect(plotx(this.x), ploty(this.y), this.size, this.size);
     //image(img, plotx(this.x), ploty(this.y), this.size, this.size);
-    line(plotx(this.x), 0, plotx(this.x), windowHeight);
-    line(0, ploty(this.y), windowWidth, ploty(this.y));
+    if (turtorial == true) {
+      line(plotx(this.x), 0, plotx(this.x), windowHeight);
+      line(0, ploty(this.y), windowWidth, ploty(this.y));
+      line(
+        plotx(this.x + this.size),
+        0,
+        plotx(this.x + this.size),
+        windowHeight
+      );
+      line(
+        0,
+        ploty(this.y + this.size),
+        windowWidth,
+        ploty(this.y + this.size)
+      );
+    }
   };
 }
 
@@ -61,9 +75,9 @@ function Platform() {
   this.h = 50;
   this.x = random(1, 1600);
   this.y = random(1, 900 - this.h);
-  this.colR = 0
-  this.colG = 50
-  this.colB = 0
+  this.colR = 0;
+  this.colG = 50;
+  this.colB = 0;
 
   this.display = function () {
     fill(this.colR, this.colG, this.colB);
