@@ -1,5 +1,7 @@
 //a mix of everyones code
 
+//Fuck dig
+
 /*
 preload()
 setup()
