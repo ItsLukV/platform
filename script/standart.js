@@ -52,7 +52,6 @@ function game() {
   mand.x += velX;
   mand.y += velY;
   canvasCut();
-  death();
   levelChange();
 }
 

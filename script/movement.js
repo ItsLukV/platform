@@ -40,12 +40,11 @@ function movement() {
 }
 
 function death() {
-  if (mand.y > ploty(900) + mand.size / 2) {
-    running = false;
-    setBackDrop(false);
-    Menu = true;
-    menu();
-    mand.x = 100;
-    mand.y = 100;
-  }
+  running = false;
+  setBackDrop(false);
+  Menu = true;
+  menu();
+  mand.x = 100;
+  mand.y = 100;
+  level = 0
 }

@@ -42,11 +42,13 @@ function mand() {
   this.x = 150;
   this.y = 100;
   this.size = 100;
-  this.col = color(255);
-
+  this.col = 255;
+  
   this.display = function () {
     //original 462x642
-    fill(this.col);
+    if (this.col> 0){
+      fill(color(this.col,this.col,this.col));
+    }
     rect(plotx(this.x), ploty(this.y), this.size, this.size);
     // image(img, plotx(this.x), ploty(this.y), this.size, this.size);
     if (turtorial == true) {

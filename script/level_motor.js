@@ -16,7 +16,10 @@ const loadedLevels = []
 
 //level = 0 = turtorial
 function levelChange() {
-  print(level)
+  if(level < 0){
+    print ("uncaught below 0 level= " + level)
+    death()
+  }
   if (level == 0) {//chacks if you are in level 0
     turtorial = true;
     timer("start");
@@ -26,7 +29,7 @@ function levelChange() {
       turtorialTime = timer("end")//sets turtorial penalty
     }
   }
-  if (mand.y < 5) { //decrease level if man is leaving level (bottom)
+  if (mand.y > 1500) { //decrease level if man is leaving level (bottom)
     bottomLevel()
     return
   }else if (mand.x > 1550) { //increases level if on right side of screen
@@ -69,11 +72,11 @@ function levelLogic(increase) {
   //player stuff
   mand.x = 150; // makes sure player is in starting possition for the level
   mand.y = 100;
-  mand.col = -5; // cahnges player color to differentiate number of level changes
   
   //platform stuff
   if(increase){ // if level increased
     if (!(loadedLevels[level])){
+      mand.col -= 5; // changes player color to differentiate number of level changes
       for (let i = 0; i > platNum; i++) {
         let platformChange = 0; // 
         if (platform[i].w > 100) { //changes the size of each platform individually
@@ -92,11 +95,12 @@ function levelLogic(increase) {
       }
     }
   }else{ // if level didn't increase
+    mand.col += 5; // changes player color to differentiate number of level changes
     platNum = levelDifficulty[level].platforms //loads the number of platforms for this level
     pointModify = levelDifficulty[level].multi//loads the multiplier for the level
     for(let i = 0; i < platNum; i++){ //loads the size of all the platfroms 
-    levelDifficulty[level].specPlatH[i]
-    levelDifficulty[level].specPlatw[i]
+      platform[i].w =levelDifficulty[level].specPlat[i].specPlatW
+      platform[i].h = levelDifficulty[level].specPlat[i].specPlatH
     }
   }
 }
@@ -134,8 +138,8 @@ function scoreboard(score) {
 }
 
 function gameOver() {//will end game
-  
-  scoreboard(score());//generates a score 
+  print(scoreboard(score()));//generates a score 
+  death()
 }
 
 const levelDifficulty = [] // stores levels
@@ -147,10 +151,14 @@ function saveDifficulty(){ // creates a saved level
 
 function DifficultyStorage(){ //contains level info
   this.platforms = platNum //number of platform
-  this.multi = pointModify // poin modifier
-  this.specPlatH
-  for(let i = 0; i<this.platforms; i++){ //platform sizes
-    this.specPlatH[i] = platform[i].h //højden
-    this.specPlatW[i] = platform[i].w //breden
+  this.multi = pointModify // point modifier
+  this.specPlat = [] 
+  for(let i = 0; i < platNum; i++){ //Store the size of all the platfroms 
+    this.specPlat[i] = new DifficultyPlatformStorage( i )
   }
+}
+
+function DifficultyPlatformStorage( j ){ //contains level info
+    this.specPlatH = platform[j].h //high
+    this.specPlatW = platform[j].w //breden
 }
