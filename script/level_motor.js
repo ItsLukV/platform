@@ -9,12 +9,14 @@ var pointModify = 1;
 var startTime = 0;
 var turtorial = true;
 var turtorialTime = 0
-var loadedLevels
+const loadedLevels = []
+
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
 
-//0 = turtorial
+//level = 0 = turtorial
 function levelChange() {
+  print(level)
   if (level == 0) {//chacks if you are in level 0
     turtorial = true;
     timer("start");
@@ -23,32 +25,43 @@ function levelChange() {
       turtorial = false
       turtorialTime = timer("end")//sets turtorial penalty
     }
-    if (mand.y < 5) { //decrease level if man is leaving level (bottom)
-      level -= 5;
-      if (level < 0) {
-        gameOver(); // ends game if below level 0
-        return;
-      } else {
-        levelLogic(false); // loads level if above level 0
-        return;
-      }
-    }
-    if (mand.x > 1550) { //increases level if on right side of screen
-      level++;
-      levelLogic(true);
-      saveDifficulty()
-      return;
-    } else if (mand.x < 30) { //decrease level if man is leaving level (left side)
-      levelStore = level;
-      level--;
-      if (level < 0) {
-        gameOver(); // ends game if below level 0
-        return;
-      } else {
-        levelLogic(false); // loads level if above level 0
-        return;
-      }
-    }
+  }
+  if (mand.y < 5) { //decrease level if man is leaving level (bottom)
+    bottomLevel()
+    return
+  }else if (mand.x > 1550) { //increases level if on right side of screen
+    rightLevel()
+    return;
+  } else if (mand.x < 30) { //decrease level if man is leaving level (left side)
+    behindLevel()
+    return
+  }
+}
+
+function bottomLevel(){
+  level -= 5;
+  if (level <= 0) {
+    gameOver(); // ends game if below level 0
+    return;
+  } else {
+    levelLogic(false); // loads level if above level 0
+  }
+}
+
+function rightLevel(){
+  level++;
+  levelLogic(true);
+  saveDifficulty()
+}
+
+  function behindLevel(){
+  levelStore = level;
+  level--;
+  if (level <= 0) {
+    gameOver(); // ends game if below level 0
+    return;
+  } else {
+    levelLogic(false); // loads level if above level 0
   }
 }
 
@@ -60,7 +73,7 @@ function levelLogic(increase) {
   
   //platform stuff
   if(increase){ // if level increased
-    if (!loadedLevels[level]){
+    if (!(loadedLevels[level])){
       for (let i = 0; i > platNum; i++) {
         let platformChange = 0; // 
         if (platform[i].w > 100) { //changes the size of each platform individually
@@ -125,10 +138,9 @@ function gameOver() {//will end game
   scoreboard(score());//generates a score 
 }
 
-
 const levelDifficulty = [] // stores levels
 function saveDifficulty(){ // creates a saved level
-  if(levelDifficulty[level] != null){
+  if(levelDifficulty[level] == undefined){
     levelDifficulty[level] = new DifficultyStorage()
   }
 }
@@ -136,6 +148,7 @@ function saveDifficulty(){ // creates a saved level
 function DifficultyStorage(){ //contains level info
   this.platforms = platNum //number of platform
   this.multi = pointModify // poin modifier
+  this.specPlatH
   for(let i = 0; i<this.platforms; i++){ //platform sizes
     this.specPlatH[i] = platform[i].h //højden
     this.specPlatW[i] = platform[i].w //breden
