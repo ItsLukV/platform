@@ -77,6 +77,33 @@ function levelLogic(increase) {
   if(increase){ // if level increased
     if (!(loadedLevels[level])){
       mand.col -= 5; // changes player color to differentiate number of level changes
+      if (platNum > 5){
+      platNum -= 1
+        } else{
+          for (let i = 0; i > platNum; i++) {
+
+        let platformChange = 0; // 
+
+        if (platform[i].w > 100) { //changes the size of each platform individually
+
+          platformChange[i] = math.floor(random(0, 2));
+
+          platformChange[i + 256] = math.floor(random(0, 2));
+
+          platform[i].w = -platformChange[i];
+
+          platform[i].h = -platformChange[i + 256]; //Ikke for små
+
+          pointMultiplier(platformChange[i], null); // gives more points for smaller plaforms
+
+          pointMultiplier(platformChange[i + 256], null);
+
+        } else {
+
+          (pointModify += 0.03); // if the platform is already at minimum size give extra multiplier
+
+        }
+     }
       for (let i = 0; i > platNum; i++) {
         let platformChange = 0; // 
         if (platform[i].w > 100) { //changes the size of each platform individually
