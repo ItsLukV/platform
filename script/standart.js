@@ -75,3 +75,42 @@ function menu() {
     print("Start");
   }
 }
+
+function variableFlush(){
+  //level_motor
+  level = 0;
+  point = 0;
+  bonusNum = null;
+  levelStore = null;
+  levlPoint = 0;
+  pointModify = 1;
+  startTime = 0;
+  turtorial = true;
+  turtorialTime = 0
+  loadedLevels = []
+  levelDifficulty = []
+
+  //standard
+  platNum = 10;
+  state = "gameStart";
+  running = false;
+  Menu = true;
+
+  //sketch
+  x = 0
+  y = 100
+  velY = 0
+  velX = 0
+  speed = 100
+  friction = 0.8
+  gravty = true
+  gravtyacc = 2
+  jumpH = 130
+  BundCol = false
+  moveSpeed = 5
+  moveplatform = true
+
+  //background
+  scrX = 0
+  scrY = 0
+}

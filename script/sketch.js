@@ -10,7 +10,7 @@ platform()
 tyndekraft()
 */
 
-var x = 0, //Dette er players x start postion
+  var x = 0, //Dette er players x start postion
   y = 100, //Dette er players y start postion
   velY = 0, //Dette er players y start hastighed
   velX = 0, //Dette er players x start hastighed
@@ -21,7 +21,7 @@ var x = 0, //Dette er players x start postion
   jumpH = 130, //Dette er, hvor højt playen hopper
   BundCol = false, //Hvis denne er true er der collstion på bund af player
   moveSpeed = 5; //Dette bestemmer platform hastighed
-moveplatform = true; //Dette bestemmer om platform skal bevæge sig
+  moveplatform = true; //Dette bestemmer om platform skal bevæge sig  
 
 var mand, platform; //Dette caller player og platform
 
