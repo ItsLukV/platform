@@ -10,12 +10,19 @@ var startTime = 0;
 var turtorial = true;
 var turtorialTime = 0
 const loadedLevels = []
+var maxLevel = 0
 
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
 
 //level = 0 = turtorial
 function levelChange() {
+  if(level>maxLevel){
+    maxLevel = level
+  } else if (level-7 <= maxLevel ){
+    gameOver()
+  }
+
   if(level < 0){
     print ("uncaught below 0 level= " + level)
     death()

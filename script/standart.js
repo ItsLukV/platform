@@ -10,7 +10,7 @@ var state = "gameStart";
 var running = false;
 
 function preload() {
-  img = loadImage("placeholder.png");
+  // img = loadImage("placeholder.png");
   loadJSON(url, gotData);
 }
 
