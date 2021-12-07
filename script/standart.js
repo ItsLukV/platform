@@ -66,9 +66,9 @@ function screenSelect() {
 var Menu = true;
 function menu(death) {
   if (death) {
-    let myFont = loadFont("Font.ttf");
+    // let myFont = loadFont("Font.ttf");
     push();
-    font(myFont);
+    // font(myFont);
     fill(0);
     textSize(100);
     text("GAME OVER", plotx(100), ploty(100));
