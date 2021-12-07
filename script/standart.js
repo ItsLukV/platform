@@ -8,8 +8,10 @@ draw()
 var platNum = 10;
 var state = "gameStart";
 var running = false;
+var myFont;
 
 function preload() {
+  myFont = loadFont("Font.ttf");
   img = loadImage("placeholder.png");
   loadJSON(url, gotData);
 }
@@ -66,7 +68,6 @@ function screenSelect() {
 var Menu = true;
 function menu(death) {
   if (death) {
-    // let myFont = loadFont("Font.ttf");
     push();
     // font(myFont);
     fill(0);
@@ -112,18 +113,19 @@ function variableFlush() {
   y = 100;
   velY = 0;
   velX = 0;
-  speed = 100;
-  friction = 0.8;
+  friction = 0.6;
+  speed = 2;
   gravty = true;
   gravtyacc = 2;
   jumpH = 1;
   BundCol = false;
-  moveSpeed = 5;
+  moveSpeed = 2;
   moveplatform = true;
 
   //background
   scrX = 0;
   scrY = 0;
+  setup();
 }
 
 function dashboard() {
