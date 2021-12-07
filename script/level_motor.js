@@ -30,7 +30,7 @@ function levelChange() {
     turtorialTime = timer("end"); //sets turtorial penalty
     print("stop turtorial" + turtorialTime);
   }
-  if (mand.y > 1500) {
+  if (mand.y >= 900-50) {
     //decrease level if man is leaving level (bottom)
     bottomLevel();
     return;
