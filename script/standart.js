@@ -13,6 +13,7 @@ function preload() {
   img = loadImage("placeholder.png");
   loadJSON(url, gotData);
 }
+var div;
 
 function setup() {
   sunGet();
@@ -23,6 +24,7 @@ function setup() {
   for (var i = 0; i < platNum; i++) {
     platform[i] = new Platform();
   }
+  div = createDiv(``);
   canvasCut();
 }
 
@@ -62,7 +64,16 @@ function screenSelect() {
   }
 }
 var Menu = true;
-function menu() {
+function menu(death) {
+  if (death) {
+    let myFont = loadFont("Font.ttf");
+    push();
+    font(myFont);
+    fill(0);
+    textSize(100);
+    text("GAME OVER", plotx(100), ploty(100));
+    pop();
+  }
   if (Menu) {
     knap = createButton("Start");
     knap.position(plotx(800 - 250), ploty(450 - 125));
@@ -76,7 +87,7 @@ function menu() {
   }
 }
 
-function variableFlush(){
+function variableFlush() {
   //level_motor
   level = 0;
   point = 0;
@@ -86,9 +97,9 @@ function variableFlush(){
   pointModify = 1;
   startTime = 0;
   turtorial = true;
-  turtorialTime = 0
-  loadedLevels = []
-  levelDifficulty = []
+  turtorialTime = 0;
+  loadedLevels = [];
+  levelDifficulty = [];
 
   //standard
   platNum = 10;
@@ -97,20 +108,40 @@ function variableFlush(){
   Menu = true;
 
   //sketch
-  x = 0
-  y = 100
-  velY = 0
-  velX = 0
-  speed = 100
-  friction = 0.8
-  gravty = true
-  gravtyacc = 2
-  jumpH = 130
-  BundCol = false
-  moveSpeed = 5
-  moveplatform = true
+  x = 0;
+  y = 100;
+  velY = 0;
+  velX = 0;
+  speed = 100;
+  friction = 0.8;
+  gravty = true;
+  gravtyacc = 2;
+  jumpH = 1;
+  BundCol = false;
+  moveSpeed = 5;
+  moveplatform = true;
 
   //background
-  scrX = 0
-  scrY = 0
+  scrX = 0;
+  scrY = 0;
+}
+
+function dashboard() {
+  div.html(`Level: ${level}`);
+  div.style("height", "auto");
+  div.style("font-size", "100px");
+  div.style("background-color", "220");
+  div.style("text-align", "center");
+  div.style("width", "100%");
+  div.position(0, 0);
+  // push();
+  // noStroke();
+  // fill(150);
+  // rect(windowWidth / 2 - 250, 0, 500, 200);
+  // pop();
+  // textSize(100);
+  // fill(0);
+  // textAlign(CENTER);
+  // text(`Level: ${level}`, windowWidth / 2, 100);
+  // text(`${startTime}`, windowWidth / 2, 100);
 }

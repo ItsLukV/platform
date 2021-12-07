@@ -10,7 +10,7 @@ platform()
 tyndekraft()
 */
 
-  var x = 0, //Dette er players x start postion
+var x = 0, //Dette er players x start postion
   y = 100, //Dette er players y start postion
   velY = 0, //Dette er players y start hastighed
   velX = 0, //Dette er players x start hastighed
@@ -18,10 +18,10 @@ tyndekraft()
   friction = 0.8, //Dette friction player har
   gravty = true, //Dette bestemer om tyndekrafen skal være til eller fra
   gravtyacc = 2, //Dette er tyndekraft acceleration
-  jumpH = 130, //Dette er, hvor højt playen hopper
+  jumpH = 80, //Dette er, hvor højt playen hopper
   BundCol = false, //Hvis denne er true er der collstion på bund af player
   moveSpeed = 5; //Dette bestemmer platform hastighed
-  moveplatform = true; //Dette bestemmer om platform skal bevæge sig  
+moveplatform = true; //Dette bestemmer om platform skal bevæge sig
 
 var mand, platform; //Dette caller player og platform
 
@@ -43,30 +43,30 @@ function mand() {
   this.y = 100;
   this.size = 100;
   this.col = 255;
-  
+
   this.display = function () {
     //original 462x642
-    if (this.col> 0){
-      fill(color(this.col,this.col,this.col));
+    if (this.col > 0) {
+      fill(color(this.col, this.col, this.col));
     }
     rect(plotx(this.x), ploty(this.y), this.size, this.size);
     // image(img, plotx(this.x), ploty(this.y), this.size, this.size);
-    if (turtorial == true) {
-      line(plotx(this.x), 0, plotx(this.x), windowHeight);
-      line(0, ploty(this.y), windowWidth, ploty(this.y));
-      line(
-        plotx(this.x + this.size),
-        0,
-        plotx(this.x + this.size),
-        windowHeight
-      );
-      line(
-        0,
-        ploty(this.y + this.size),
-        windowWidth,
-        ploty(this.y + this.size)
-      );
-    }
+    // if (turtorial == true) {
+    //   line(plotx(this.x), 0, plotx(this.x), windowHeight);
+    //   line(0, ploty(this.y), windowWidth, ploty(this.y));
+    //   line(
+    //     plotx(this.x + this.size),
+    //     0,
+    //     plotx(this.x + this.size),
+    //     windowHeight
+    //   );
+    //   line(
+    //     0,
+    //     ploty(this.y + this.size),
+    //     windowWidth,
+    //     ploty(this.y + this.size)
+    //   );
+    // }
   };
 }
 
@@ -78,7 +78,7 @@ function Platform() {
   this.x = random(1, 1600);
   this.y = random(1, 900 - this.h);
   this.colR = 0;
-  this.colG = 50;
+  this.colG = 50 + random(0, 190);
   this.colB = 0;
 
   this.display = function () {

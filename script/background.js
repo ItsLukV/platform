@@ -36,6 +36,8 @@ function canvasCut() {
   rect(plotx(-5), ploty(900), width + plotx(10)); //bottom
   rect(plotx(1600), ploty(-5), plotx(0), ploty(900) + ploty(10)); // right
   stroke(0);
+  fill(0);
+  dashboard();
 }
 
 let scrX = 0; // screen ofset from start scene for x

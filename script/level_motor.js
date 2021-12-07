@@ -8,40 +8,44 @@ var levlPoint = 0;
 var pointModify = 1;
 var startTime = 0;
 var turtorial = true;
-var turtorialTime = 0
-const loadedLevels = []
+var turtorialTime = 0;
+const loadedLevels = [];
 
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
 
 //level = 0 = turtorial
 function levelChange() {
-  if(level < 0){
-    print ("uncaught below 0 level= " + level)
-    death()
-    return
+  if (level < 0) {
+    print("uncaught below 0 level= " + level);
+    death();
+    return;
   }
-  if (level == 0) {//chacks if you are in level 0
+  if (level == 0) {
+    //chacks if you are in level 0
     turtorial = true;
     timer("start");
-  } else if (turtorial == true){
-    turtorial = false
-    turtorialTime = timer("end")//sets turtorial penalty
-    print("stop turtorial" + turtorialTime)
+  } else if (turtorial == true) {
+    turtorial = false;
+    turtorialTime = timer("end"); //sets turtorial penalty
+    print("stop turtorial" + turtorialTime);
   }
-  if (mand.y > 1500) { //decrease level if man is leaving level (bottom)
-    bottomLevel()
-    return
-  }else if (mand.x > 1550) { //increases level if on right side of screen
-    rightLevel()
+  if (mand.y > 1500) {
+    //decrease level if man is leaving level (bottom)
+    bottomLevel();
     return;
-  } else if (mand.x < 30) { //decrease level if man is leaving level (left side)
-    behindLevel()
-    return
+  } else if (mand.x > 1550) {
+    //increases level if on right side of screen
+    rightLevel();
+    return;
+  } else if (mand.x < 30) {
+    //decrease level if man is leaving level (left side)
+    behindLevel();
+    return;
   }
 }
 
-function bottomLevel(){
+function bottomLevel() {
   level -= 5;
   if (level <= 0) {
     gameOver(); // ends game if below level 0
@@ -51,13 +55,13 @@ function bottomLevel(){
   }
 }
 
-function rightLevel(){
+function rightLevel() {
   level++;
   levelLogic(true);
-  saveDifficulty()
+  saveDifficulty();
 }
 
-  function behindLevel(){
+function behindLevel() {
   levelStore = level;
   level--;
   if (level <= 0) {
@@ -72,37 +76,40 @@ function levelLogic(increase) {
   //player stuff
   mand.x = 150; // makes sure player is in starting possition for the level
   mand.y = 100;
-  
+
   //platform stuff
-  print("level logic")
-  if(increase){ // if level increased
-    print("increased level")
-    if (!(loadedLevels[level])){
-      print("level not loaded")
+  console.log("level logic");
+  if (increase) {
+    // if level increased
+    console.log("increased level");
+    if (!loadedLevels[level]) {
+      console.log("level not loaded");
       mand.col -= 5; // changes player color to differentiate number of level changes
-      if (platNum > 5){
-      platNum -= 1
-        } else{
-          for (let i = 0; i > platNum; i++) {
-        let platformChange = 0; // 
-        if (platform[i].w > 100) { //changes the size of each platform individually
-          platformChangeW[i] = math.floor(random(0, 2));
-          platformChangeH[i] = math.floor(random(0, 2));
-          platform[i].w -= platformChange[i];
-          if(platform[i].h >= 10){
-          platform[i].h -= platformChangeH[i]; //Ikke for små
+      if (platNum > 5) {
+        platNum -= 1;
+      } else {
+        for (let i = 0; i > platNum; i++) {
+          let platformChange = 0; //
+          if (platform[i].w > 100) {
+            //changes the size of each platform individually
+            platformChangeW[i] = math.floor(random(0, 2));
+            platformChangeH[i] = math.floor(random(0, 2));
+            platform[i].w -= platformChange[i];
+            if (platform[i].h >= 10) {
+              platform[i].h -= platformChangeH[i]; //Ikke for små
+            }
+            pointMultiplier(platformChangeW[i], null); // gives more points for smaller plaforms
+            pointMultiplier(platformChangeH[256], null);
+          } else {
+            pointModify += 0.03; // if the platform is already at minimum size give extra multiplier
           }
-          pointMultiplier(platformChangeW[i], null); // gives more points for smaller plaforms
-          pointMultiplier(platformChangeH[256], null);
-        } else {
-          (pointModify += 0.03); // if the platform is already at minimum size give extra multiplier
         }
       }
-    }
       for (let i = 0; i > platNum; i++) {
-        let platformChange = 0; // 
-        if (platform[i].w > 100) { //changes the size of each platform individually
-          print("size running")
+        let platformChange = 0; //
+        if (platform[i].w > 100) {
+          //changes the size of each platform individually
+          console.log("size running");
           platformChangeW[i] = math.floor(random(0, 2));
           platformChangeH[i] = math.floor(random(0, 2));
           platform[i].w -= platformChangeW[i];
@@ -110,85 +117,100 @@ function levelLogic(increase) {
           pointMultiplier(platformChangeW[i], null); // gives more points for smaller plaforms
           pointMultiplier(platformChangeH[i], null);
         } else {
-          (pointModify += 0.03); // if the platform is already at minimum size give extra multiplier
+          pointModify += 0.03; // if the platform is already at minimum size give extra multiplier
         }
       }
-      if (level != levelStore) { //checks if the level has changed
-        pointMultiplier(null, level - levelStore);// sets a level multiplier
+      if (level != levelStore) {
+        //checks if the level has changed
+        pointMultiplier(null, level - levelStore); // sets a level multiplier
       }
     }
-  }else{ // if level didn't increase
-    print("level didn't increase")
+  } else {
+    // if level didn't increase
+    console.log("level didn't increase");
     mand.col += 5; // changes player color to differentiate number of level changes
-    platNum = levelDifficulty[level].platforms //loads the number of platforms for this level
-    pointModify = levelDifficulty[level].multi//loads the multiplier for the level
-    for(let i = 0; i < platNum; i++){ //loads the size of all the platfroms 
-      platform[i].w = levelDifficulty[level].specPlat[i].specPlatW
-      platform[i].h = levelDifficulty[level].specPlat[i].specPlatH
+    platNum = levelDifficulty[level].platforms; //loads the number of platforms for this level
+    pointModify = levelDifficulty[level].multi; //loads the multiplier for the level
+    for (let i = 0; i < platNum; i++) {
+      //loads the size of all the platfroms
+      platform[i].w = levelDifficulty[level].specPlat[i].specPlatW;
+      platform[i].h = levelDifficulty[level].specPlat[i].specPlatH;
     }
   }
 }
 
 function pointMultiplier(platformMulti, levelMulti) {
-  
-  if (platformMulti != null) { //checks if platform math
-    (pointModify += platformMulti * 1.01);
+  if (platformMulti != null) {
+    //checks if platform math
+    pointModify += platformMulti * 1.01;
     return;
   }
-  if (levelMulti != null) {//checks if level math
-    (pointModify += levelMulti * 1.3);
+  if (levelMulti != null) {
+    //checks if level math
+    pointModify += levelMulti * 1.3;
   }
 }
 
-function timer(go) {//makes a timer to calculate points at the end
-  if (go == "start") {//gets a start time for the program
+function timer(go) {
+  //makes a timer to calculate points at the end
+  if (go == "start") {
+    //gets a start time for the program
     startTime = new Date().getTime();
-    return (startTime)
-  } else if (go == "end") {//gets the time between start and 'end'
+    return startTime;
+  } else if (go == "end") {
+    //gets the time between start and 'end'
     return new Date().getTime() - startTime;
   }
 }
 
 function score() {
-  return (//gives a score based on time and multiplier
-    (timer("end") - startTime /*5332*/- ((timer("end") - startTime) % 1000 /*332*/))-((turtorialTime-((turtorialTime%1000)/1000) / 1000)/2) *
-    pointModify
-    )
-    print("score running")
-  }
+  return (
+    //gives a score based on time and multiplier
+    timer("end") -
+    startTime /*5332*/ -
+    ((timer("end") - startTime) % 1000) /*332*/ -
+    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) * pointModify
+  );
+  console.log("score running");
+}
 
 function scoreboard(score) {
-  print("scoreboard running")
-  return(score) //temp until server works
+  console.log("scoreboard running");
+  return score; //temp until server works
   //will use json on HTX.mtdm.dk
   //still need to figure out how
   //DOES NOT FUNCTION
 }
 
-function gameOver() {//will end game
-  print(scoreboard(score()));//generates a score 
-  death()
+function gameOver() {
+  //will end game
+  console.log(scoreboard(score())); //generates a score
+  death();
 }
 
-const levelDifficulty = [] // stores levels
-function saveDifficulty(){ // creates a saved level
-  if(levelDifficulty[level] == undefined){
-    levelDifficulty[level] = new DifficultyStorage()
+const levelDifficulty = []; // stores levels
+function saveDifficulty() {
+  // creates a saved level
+  if (levelDifficulty[level] == undefined) {
+    levelDifficulty[level] = new DifficultyStorage();
   }
 }
 
-function DifficultyStorage(){ //contains level info
-  print("difficulty storage runnning")
-  this.platforms = platNum //number of platform
-  this.multi = pointModify // point modifier
-  this.specPlat = [] 
-  for(let i = 0; i < platNum; i++){ //Store the size of all the platfroms 
-    this.specPlat[i] = new DifficultyPlatformStorage( i )
+function DifficultyStorage() {
+  //contains level info
+  console.log("difficulty storage runnning");
+  this.platforms = platNum; //number of platform
+  this.multi = pointModify; // point modifier
+  this.specPlat = [];
+  for (let i = 0; i < platNum; i++) {
+    //Store the size of all the platfroms
+    this.specPlat[i] = new DifficultyPlatformStorage(i);
   }
 }
 
-function DifficultyPlatformStorage( j ){ //contains level info
-print("size storage running")
-  this.specPlatH = platform[j].h //high
-    this.specPlatW = platform[j].w //breden
+function DifficultyPlatformStorage(j) {
+  //contains level info
+  console.log("size storage running");
+  this.specPlatH = platform[j].h; //high
+  this.specPlatW = platform[j].w; //breden
 }

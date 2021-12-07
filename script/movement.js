@@ -43,8 +43,10 @@ function death() {
   running = false;
   setBackDrop(false);
   Menu = true;
-  menu();
+  level = 0;
+  dashboard();
+  menu(death);
   mand.x = 100;
   mand.y = 100;
-  level = 0
+  // flush();
 }
