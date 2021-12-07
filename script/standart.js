@@ -22,9 +22,9 @@ function setup() {
   setBackDrop(true);
 
   //makes the object
-  mand = new mand();
+  mand = new ske(); //burde hede mand men alt går i stykker hvis ske() heder mand()
   for (var i = 0; i < platNum; i++) {
-    platform[i] = new Platform();
+    platform[i] = new skeen(); //skeen istedet for platform af samme grund
   }
   div = createDiv(``);
   canvasCut();
@@ -99,11 +99,11 @@ function variableFlush() {
   startTime = 0;
   turtorial = true;
   turtorialTime = 0;
-  for(let i = 0; loadedLevels = 0; i++){
+  for(let i = 0; loadedLevels.length = 0; i++){
     loadedLevels [i] = undefined
   }
-  for(let i = 0; levelDifficulty = 0; i++){
-    loadedLevels [i] = undefined
+  for(let i = 0; levelDifficulty.lenght = 0; i++){
+    levelDifficulty [i] = undefined
   }
 
   //standard
@@ -111,20 +111,26 @@ function variableFlush() {
   state = "gameStart";
   running = false;
   Menu = true;
+  kanp = undefined
+    knap.hide();
 
   //sketch
   x = 0;
   y = 100;
   velY = 0;
   velX = 0;
-  friction = 0.6;
-  speed = 2;
+  friction = 0.8;
+  speed = 100;
   gravty = true;
   gravtyacc = 2;
-  jumpH = 1;
+  jumpH = 80;
   BundCol = false;
-  moveSpeed = 2;
+  moveSpeed = 3;
   moveplatform = true;
+  mand = undefined
+  for(let i = 0; platform.lenght = 0; i++){
+    platform [i] = undefined
+  }
 
   //background
   scrX = 0;

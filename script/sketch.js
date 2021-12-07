@@ -23,7 +23,8 @@ var x = 0, //Dette er players x start postion
   moveSpeed = 3; //Dette bestemmer platform hastighed
 moveplatform = true; //Dette bestemmer om platform skal bevæge sig
 
-var mand, platform; //Dette caller player og platform
+
+; //Dette caller player og platform
 
 function plotx(x /*0-1600*/) {
   x = (width - 1600) / 2 + x;
@@ -38,7 +39,7 @@ function ploty(y /*0-900*/) {
 //16:9 spille størlse
 //1600 * 900 px
 
-function mand() {
+function ske() {
   this.x = 150;
   this.y = 100;
   this.size = 100;
@@ -72,7 +73,7 @@ function mand() {
 
 platform = [];
 
-function Platform() {
+function skeen() {
   this.w = 200;
   this.h = 50;
   this.x = random(1, 1600);
