@@ -55,7 +55,7 @@ function game() {
   tyndekraft();
   mand.x += velX;
   mand.y += velY;
-  canvasCut();
+  //canvasCut();
   levelChange();
 }
 
