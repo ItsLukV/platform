@@ -99,8 +99,12 @@ function variableFlush() {
   startTime = 0;
   turtorial = true;
   turtorialTime = 0;
-  loadedLevels = [];
-  levelDifficulty = [];
+  for(let i = 0; loadedLevels = 0; i++){
+    loadedLevels [i] = undefined
+  }
+  for(let i = 0; levelDifficulty = 0; i++){
+    loadedLevels [i] = undefined
+  }
 
   //standard
   platNum = 10;
