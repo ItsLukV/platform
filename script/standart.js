@@ -22,9 +22,9 @@ function setup() {
   setBackDrop(true);
 
   //makes the object
-  mand = new ske(); //burde hede mand men alt går i stykker hvis ske() heder mand()
+  mand = new manden(); //burde hede mand men alt går i stykker hvis ske() heder mand()
   for (var i = 0; i < platNum; i++) {
-    platform[i] = new skeen(); //skeen istedet for platform af samme grund
+    platform[i] = new platformen(); //skeen istedet for platform af samme grund
   }
   div = createDiv(``);
   canvasCut();

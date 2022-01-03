@@ -39,7 +39,7 @@ function ploty(y /*0-900*/) {
 //16:9 spille størlse
 //1600 * 900 px
 
-function ske() {
+function manden() {
   this.x = 150;
   this.y = 100;
   this.size = 100;
@@ -73,7 +73,7 @@ function ske() {
 
 platform = [];
 
-function skeen() {
+function platformen() {
   this.w = 200;
   this.h = 50;
   this.x = random(1, 1600);
