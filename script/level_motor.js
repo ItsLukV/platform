@@ -221,7 +221,7 @@ function DifficultyPlatformStorage(j) {
 function gameEnd(){
   if(level>maxLevel){
     maxLevel = level
-  // } else if ((maxLevel-4) <= level){
-  //   gameOver()
+  } else if ((maxLevel-4) <= level){
+  gameOver()
   }
 }
