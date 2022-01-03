@@ -10,6 +10,7 @@ var startTime = 0;
 var turtorial = true;
 var turtorialTime = 0;
 const loadedLevels = [];
+var maxLevel = 0
 
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
@@ -18,6 +19,15 @@ const loadedLevels = [];
 function levelChange() {
   if (level < 0) {
     print("uncaught below 0 level= " + level);
+    running = false
+    print ("set running = true to contenue")
+    for (let i = 0; j;i++){
+      let j = false
+      wait(100)
+      if(running == true){
+        j = true
+      }
+    }
     death();
     return;
   }
@@ -46,7 +56,7 @@ function levelChange() {
 }
 
 function bottomLevel() {
-  level -= 5;
+  level -= 3;
   if (level <= 0) {
     gameOver(); // ends game if below level 0
     return;
@@ -85,7 +95,7 @@ function levelLogic(increase) {
     if (!loadedLevels[level]) {
       console.log("level not loaded");
       mand.col -= 5; // changes player color to differentiate number of level changes
-      if (platNum > 5) {
+      if (platNum > 5 && random(0,2)>1) {
         platNum -= 1;
       } else {
         for (let i = 0; i > platNum; i++) {
@@ -168,7 +178,7 @@ function score() {
     //gives a score based on time and multiplier
     timer("end") -
     startTime /*5332*/ -
-    ((timer("end") - startTime) % 1000) /*332*/ -
+    ((timer("end") - startTime) % 1000) -
     ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) * pointModify
   );
   console.log("score running");
@@ -213,4 +223,12 @@ function DifficultyPlatformStorage(j) {
   console.log("size storage running");
   this.specPlatH = platform[j].h; //high
   this.specPlatW = platform[j].w; //breden
+}
+
+function gameEnd(){
+  if(level>maxLevel){
+    maxLevel = level
+  } else if ((maxLevel-4) <= level){
+    gameOver()
+  }
 }

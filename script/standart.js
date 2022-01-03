@@ -55,7 +55,7 @@ function game() {
   tyndekraft();
   mand.x += velX;
   mand.y += velY;
-  //canvasCut();
+  canvasCut();
   levelChange();
 }
 
@@ -105,6 +105,7 @@ function variableFlush() {
   for(let i = 0; levelDifficulty.lenght = 0; i++){
     levelDifficulty [i] = undefined
   }
+  maxLevel = 0
 
   //standard
   platNum = 10;
