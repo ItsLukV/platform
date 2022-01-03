@@ -1,4 +1,4 @@
-# Pong / platformer
+# Platformer
 
 made by:
 
