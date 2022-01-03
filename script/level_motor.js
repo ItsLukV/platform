@@ -193,7 +193,7 @@ function gameOver() {
 
 const levelDifficulty = []; // stores levels
 function saveDifficulty() {
-  // creates a saved level
+  // creates a saved level½
   if (levelDifficulty[level] == undefined) {
     levelDifficulty[level] = new DifficultyStorage();
   }
@@ -221,7 +221,7 @@ function DifficultyPlatformStorage(j) {
 function gameEnd(){
   if(level>maxLevel){
     maxLevel = level
-  } else if ((maxLevel-4) <= level){
-    gameOver()
+  // } else if ((maxLevel-4) <= level){
+  //   gameOver()
   }
 }
