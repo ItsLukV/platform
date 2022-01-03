@@ -56,30 +56,23 @@ function levelChange() {
 }
 
 function bottomLevel() {
-  level -= 3;
-  if (level <= 0) {
-    gameOver(); // ends game if below level 0
-    return;
-  } else {
-    levelLogic(false); // loads level if above level 0
-  }
+  level -= 2;
+  gameEnd()
+  levelLogic(false); // loads level if above level 0
+  print(level)
 }
 
 function rightLevel() {
   level++;
   levelLogic(true);
   saveDifficulty();
+  gameEnd()
 }
 
 function behindLevel() {
-  levelStore = level;
   level--;
-  if (level <= 0) {
-    gameOver(); // ends game if below level 0
-    return;
-  } else {
-    levelLogic(false); // loads level if above level 0
-  }
+  gameEnd()
+  levelLogic(false); // loads level if above level 0
 }
 
 function levelLogic(increase) {
