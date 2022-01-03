@@ -11,6 +11,7 @@ var turtorial = true;
 var turtorialTime = 0;
 const loadedLevels = [];
 var maxLevel = 0
+var finish = false
 
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
@@ -82,16 +83,16 @@ function levelLogic(increase) {
 
   //platform stuff
   console.log("level logic");
-  if (increase) {
+  if (increase && !finish) {
     // if level increased
     console.log("increased level");
-    if (!loadedLevels[level]) {
+    if (!loadedLevels[level] && !finish) {
       console.log("level not loaded");
       mand.col -= 5; // changes player color to differentiate number of level changes
       if (platNum > 5 && random(0,2)>1) {
         platNum -= 1;
       } else {
-        for (let i = 0; i > platNum; i++) {
+        for (let i = 0; i > platNum || finish; i++) {
           let platformChange = 0; //
           if (platform[i].w > 100) {
             //changes the size of each platform individually
@@ -108,7 +109,7 @@ function levelLogic(increase) {
           }
         }
       }
-      for (let i = 0; i > platNum; i++) {
+      for (let i = 0; i > platNum || finish; i++) {
         let platformChange = 0; //
         if (platform[i].w > 100) {
           //changes the size of each platform individually
@@ -123,12 +124,12 @@ function levelLogic(increase) {
           pointModify += 0.03; // if the platform is already at minimum size give extra multiplier
         }
       }
-      if (level != levelStore) {
+      if (level != levelStore && !finish) {
         //checks if the level has changed
         pointMultiplier(null, level - levelStore); // sets a level multiplier
       }
     }
-  } else {
+  } else if (!finish){
     // if level didn't increase
     console.log("level didn't increase");
     mand.col += 5; // changes player color to differentiate number of level changes
@@ -223,5 +224,6 @@ function gameEnd(){
     maxLevel = level
   } else if ((maxLevel-4) <= level){
   gameOver()
+  finish = true
   }
 }
