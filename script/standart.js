@@ -26,7 +26,7 @@ function setup() {
   for (var i = 0; i < platNum; i++) {
     platform[i] = new platformen(); //skeen istedet for platform af samme grund
   }
-  div = createDiv(``);
+  div = select(`#dashbord`);
   canvasCut();
 }
 
@@ -82,7 +82,7 @@ function menu(death) {
     Menu = !Menu;
   }
   function tryk() {
-    timer("start")
+    timer("start");
     running = true;
     knap.hide();
     print("Start");
@@ -100,22 +100,22 @@ function variableFlush() {
   startTime = 0;
   turtorial = true;
   turtorialTime = 0;
-  for(let i = 0; loadedLevels.length = 0; i++){
-    loadedLevels [i] = undefined
+  for (let i = 0; (loadedLevels.length = 0); i++) {
+    loadedLevels[i] = undefined;
   }
-  for(let i = 0; levelDifficulty.lenght = 0; i++){
-    levelDifficulty [i] = undefined
+  for (let i = 0; (levelDifficulty.lenght = 0); i++) {
+    levelDifficulty[i] = undefined;
   }
-  maxLevel = 0
-  finish = false
+  maxLevel = 0;
+  finish = false;
 
   //standard
   platNum = 10;
   state = "gameStart";
   running = false;
   Menu = true;
-  kanp = undefined
-    knap.hide();
+  kanp = undefined;
+  knap.hide();
 
   //sketch
   x = 0;
@@ -130,9 +130,9 @@ function variableFlush() {
   BundCol = false;
   moveSpeed = 3;
   moveplatform = true;
-  mand = undefined
-  for(let i = 0; platform.lenght = 0; i++){
-    platform [i] = undefined
+  mand = undefined;
+  for (let i = 0; (platform.lenght = 0); i++) {
+    platform[i] = undefined;
   }
 
   //background
@@ -142,21 +142,12 @@ function variableFlush() {
 }
 
 function dashboard() {
-  div.html(`Level: ${level}`);
+  console.log(score());
+  div.html(`Level: ${level}. Score: ${score()}`);
   div.style("height", "auto");
   div.style("font-size", "100px");
   div.style("background-color", "220");
   div.style("text-align", "center");
   div.style("width", "100%");
   div.position(0, 0);
-  // push();
-  // noStroke();
-  // fill(150);
-  // rect(windowWidth / 2 - 250, 0, 500, 200);
-  // pop();
-  // textSize(100);
-  // fill(0);
-  // textAlign(CENTER);
-  // text(`Level: ${level}`, windowWidth / 2, 100);
-  // text(`${startTime}`, windowWidth / 2, 100);
 }
