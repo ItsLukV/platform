@@ -11,7 +11,7 @@ var running = false;
 var div;
 
 function preload() {
-  img = loadImage("placeholder.png");
+  song = loadSound("assets/GameMusic.mp3");
   loadJSON(url, gotData);
 }
 
@@ -61,6 +61,8 @@ function screenSelect() {
   } else if (state == "gameover") {
   }
 }
+
+var song;
 var Menu = true;
 function menu(death) {
   if (death) {
@@ -78,6 +80,9 @@ function menu(death) {
   }
   function tryk() {
     timer("start");
+    if (!song.isPlaying()) {
+      song.play();
+    }
     running = true;
     knap.hide();
     print("Start");
@@ -132,8 +137,6 @@ function variableFlush() {
 
   setup();
 }
-
-var div = select(`#dashbord`);
 
 function dashboard() {
   if (!Menu) {

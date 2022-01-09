@@ -55,10 +55,10 @@ function manden() {
 platform = [];
 
 function platformen() {
-  this.x = random(1, 1600); //start position
-  this.y = random(1, 900 - this.h); //start position
   this.w = 200; //breden på spilleren
   this.h = 50; //højden på spilleren
+  this.x = random(1, 1600); //start position
+  this.y = random(1, 900 - this.h); //start position
   this.colR = 0; //hvor meget rød, platformen skal have
   this.colG = 50 + random(0, 190); // hvor meget grøn, platformen skal have
   this.colB = 0; // hvor meget grøn, platformen skal have

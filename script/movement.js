@@ -37,6 +37,9 @@ function movement() {
 }
 
 function death() {
+  if (song.isPlaying()) {
+    song.stop();
+  }
   running = false;
   setBackDrop(false);
   Menu = true;
