@@ -10,26 +10,24 @@ var startTime = 0;
 var turtorial = true;
 var turtorialTime = 0;
 const loadedLevels = [];
-var maxLevel = 0
-var finish = false
+var maxLevel = 0;
+var finish = false;
 
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
 
 //level = 0 = turtorial
 
-
-
 function levelChange() {
   if (level < 0) {
     print("uncaught below 0 level= " + level);
-    running = false
-    print ("set running = true to contenue")
-    for (let i = 0; j;i++){
-      let j = false
-      wait(100)
-      if(running == true){
-        j = true
+    running = false;
+    print("set running = true to contenue");
+    for (let i = 0; j; i++) {
+      let j = false;
+      wait(100);
+      if (running == true) {
+        j = true;
       }
     }
     death();
@@ -39,12 +37,12 @@ function levelChange() {
     //checks if you are in level 0
     turtorial = true;
   }
-  if (turtorial == true && level ==1) {
+  if (turtorial == true && level == 1) {
     turtorial = false;
     turtorialTime = timer("end"); //sets turtorial penalty
     print("stop turtorial" + turtorialTime);
   }
-  if (mand.y >= 900-50) {
+  if (mand.y >= 900 - 50) {
     //decrease level if man is leaving level (bottom)
     bottomLevel();
     return;
@@ -60,97 +58,98 @@ function levelChange() {
 }
 
 function bottomLevel() {
-  print("bottom")
+  print("bottom");
   level -= 2;
-  gameEnd()
+  gameEnd();
   levelLogic(false); // loads level if above level 0
 }
 
 function rightLevel() {
-  print("right")
+  print("right");
   level++;
   levelLogic(true);
   saveDifficulty();
-  gameEnd()
+  gameEnd();
 }
 
 function behindLevel() {
-  print("left")
+  print("left");
   level--;
-  gameEnd()
+  gameEnd();
   levelLogic(false); // loads level if above level 0
 }
 
 function levelLogic(increase) {
-  if(!finish){
-    print("WTF")
-  //player stuff
-  mand.x = 150; // makes sure player is in starting possition for the level
-  mand.y = 100;
+  if (!finish) {
+    print("WTF");
+    //player stuff
+    mand.x = 150; // makes sure player is in starting possition for the level
+    mand.y = 100;
 
-  //platform stuff
-  console.log("level logic");
-  if (increase) {
-    // if level increased
-    console.log("increased level");
-    if (!loadedLevels[level] && !finish) {
-      console.log("level not loaded");
-      mand.col -= 5; // changes player color to differentiate number of level changes
-      if (platNum > 5 && random(0,2)>1) {
-        platNum -= 1;
-      } else {
+    //platform stuff
+    console.log("level logic");
+    if (increase) {
+      // if level increased
+      console.log("increased level");
+      if (!loadedLevels[level] && !finish) {
+        console.log("level not loaded");
+        mand.col -= 5; // changes player color to differentiate number of level changes
+        if (platNum > 5 && random(0, 2) > 1) {
+          platNum -= 1;
+        } else {
+          for (let i = 0; i > platNum; i++) {
+            let platformChange = 0; //
+            if (platform[i].w > 100) {
+              //changes the size of each platform individually
+              platformChangeW[i] = math.floor(random(0, 2));
+              platformChangeH[i] = math.floor(random(0, 2));
+              platform[i].w -= platformChange[i];
+              if (platform[i].h >= 10) {
+                platform[i].h -= platformChangeH[i]; //Ikke for små
+              }
+              pointMultiplier(platformChangeW[i], null); // gives more points for smaller plaforms
+              pointMultiplier(platformChangeH[256], null);
+            } else {
+              pointModify += 0.03; // if the platform is already at minimum size give extra multiplier
+            }
+          }
+        }
         for (let i = 0; i > platNum; i++) {
           let platformChange = 0; //
           if (platform[i].w > 100) {
             //changes the size of each platform individually
+            console.log("size running");
             platformChangeW[i] = math.floor(random(0, 2));
             platformChangeH[i] = math.floor(random(0, 2));
-            platform[i].w -= platformChange[i];
-            if (platform[i].h >= 10) {
-              platform[i].h -= platformChangeH[i]; //Ikke for små
-            }
+            platform[i].w -= platformChangeW[i];
+            platform[i].h -= platformChangeH[i]; //Ikke for små
             pointMultiplier(platformChangeW[i], null); // gives more points for smaller plaforms
-            pointMultiplier(platformChangeH[256], null);
+            pointMultiplier(platformChangeH[i], null);
           } else {
             pointModify += 0.03; // if the platform is already at minimum size give extra multiplier
           }
         }
-      }
-      for (let i = 0; i > platNum; i++) {
-        let platformChange = 0; //
-        if (platform[i].w > 100) {
-          //changes the size of each platform individually
-          console.log("size running");
-          platformChangeW[i] = math.floor(random(0, 2));
-          platformChangeH[i] = math.floor(random(0, 2));
-          platform[i].w -= platformChangeW[i];
-          platform[i].h -= platformChangeH[i]; //Ikke for små
-          pointMultiplier(platformChangeW[i], null); // gives more points for smaller plaforms
-          pointMultiplier(platformChangeH[i], null);
-        } else {
-          pointModify += 0.03; // if the platform is already at minimum size give extra multiplier
+        if (level != levelStore) {
+          //checks if the level has changed
+          pointMultiplier(null, level - levelStore); // sets a level multiplier
         }
       }
-      if (level != levelStore) {
-        //checks if the level has changed
-        pointMultiplier(null, level - levelStore); // sets a level multiplier
+    } else {
+      // if level didn't increase
+      console.log("level didn't increase");
+      mand.col += 5; // changes player color to differentiate number of level changes
+      platNum = levelDifficulty[level].platforms; //loads the number of platforms for this level
+      pointModify = levelDifficulty[level].multi; //loads the multiplier for the level
+      for (let i = 0; i < platNum; i++) {
+        //loads the size of all the platfroms
+        platform[i].w = levelDifficulty[level].specPlat[i].specPlatW;
+        platform[i].h = levelDifficulty[level].specPlat[i].specPlatH;
       }
     }
-  } else{
-    // if level didn't increase
-    console.log("level didn't increase");
-    mand.col += 5; // changes player color to differentiate number of level changes
-    platNum = levelDifficulty[level].platforms; //loads the number of platforms for this level
-    pointModify = levelDifficulty[level].multi; //loads the multiplier for the level
-    for (let i = 0; i < platNum; i++) {
-      //loads the size of all the platfroms
-      platform[i].w = levelDifficulty[level].specPlat[i].specPlatW;
-      platform[i].h = levelDifficulty[level].specPlat[i].specPlatH;
-    }
+  } else {
+    finish = false;
   }
-}else{
-  finish = false
-}}
+}
 
 function pointMultiplier(platformMulti, levelMulti) {
   if (platformMulti != null) {
@@ -176,46 +175,39 @@ function timer(go) {
   }
 }
 
-
-
-
-
-function score(){
+function score() {
   //gives a score based on time and multiplier
-  return(
-    (scoreCalM(false)-scoreCalM(true))
-  )
+  return scoreCalM(false) - scoreCalM(true);
 }
 
-function scoreCalM(modul){
-  if(!modul){
-  return(
-    (((timer("end") -
-    (timer("end") % 1000) -
-    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2)
-    )*pointModify)/10)
-  )
-}else{
-    return(
-    scoreCalM(false) % 1
-    )
+function scoreCalM(modul) {
+  if (!modul) {
+    return (
+      ((timer("end") -
+        (timer("end") % 1000) -
+        (turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) *
+        pointModify) /
+      10
+    );
+  } else {
+    return scoreCalM(false) % 1;
   }
-
 }
 
 function scoreboard(score) {
   console.log("scoreboard running");
-  return ("your score is: " + score + " points") //temp until server works
+  return "your score is: " + score + " points"; //temp until server works
   //will use json on HTX.mtdm.dk
   //still need to figure out how
   //DOES NOT FUNCTION
 }
 
-let tempScore = 0
+let tempScore = 0;
 function gameOver() {
   //will end game
-  tempScore = scoreboard(score())
-  console.log(tempScore); //generates a score
+  // tempScore = scoreboard(score())
+  tempScore = score();
+  // console.log(tempScore); //generates a score
   death();
 }
 
@@ -246,11 +238,11 @@ function DifficultyPlatformStorage(j) {
   this.specPlatW = platform[j].w; //breden
 }
 
-function gameEnd(){
-  if(level>maxLevel){
-    maxLevel = level
-  } else if ((maxLevel-3) > level || level < 1){
-  gameOver()
-  finish = true
+function gameEnd() {
+  if (level > maxLevel) {
+    maxLevel = level;
+  } else if (maxLevel - 3 > level || level < 1) {
+    gameOver();
+    finish = true;
   }
 }

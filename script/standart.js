@@ -143,7 +143,11 @@ function variableFlush() {
 
 function dashboard() {
   // console.log(score());
-  div.html(`Level: ${level}. Score: ${score()}`);
+  if (!Menu) {
+    div.html(`Level: ${level}. Score: ${score()}`);
+  } else {
+    div.html(`Level: ${level}. Score: ${tempScore}`);
+  }
   div.style("height", "auto");
   div.style("font-size", "100px");
   div.style("background-color", "220");
