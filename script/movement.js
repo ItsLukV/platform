@@ -49,5 +49,4 @@ function death() {
   variableFlush();
   mand.x = 100;
   mand.y = 100;
-  // flush();
 }
