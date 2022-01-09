@@ -176,16 +176,31 @@ function timer(go) {
   }
 }
 
-function score() {
-  return (
-    //gives a score based on time and multiplier
-    ((timer("end") -
+
+
+
+
+function score(){
+  //gives a score based on time and multiplier
+  return(
+    (scoreCalM(false)-scoreCalM(true))
+  )
+}
+
+function scoreCalM(modul){
+  if(!modul){
+  return(
+    (((timer("end") -
     (timer("end") % 1000) -
-    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) * pointModify)) - ((timer("end") -
-    (timer("end") % 1000) -
-    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) * pointModify) % 1)
-  );
-  console.log("score running");
+    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2)
+    )*pointModify)/10)
+  )
+}else{
+    return(
+    scoreCalM(false) % 1
+    )
+  }
+
 }
 
 function scoreboard(score) {
@@ -196,9 +211,11 @@ function scoreboard(score) {
   //DOES NOT FUNCTION
 }
 
+let tempScore = 0
 function gameOver() {
   //will end game
-  console.log(scoreboard(score())); //generates a score
+  tempScore = scoreboard(score())
+  console.log(tempScore); //generates a score
   death();
 }
 

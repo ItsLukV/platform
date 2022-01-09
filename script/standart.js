@@ -142,7 +142,7 @@ function variableFlush() {
 }
 
 function dashboard() {
-  console.log(score());
+  // console.log(score());
   div.html(`Level: ${level}. Score: ${score()}`);
   div.style("height", "auto");
   div.style("font-size", "100px");
