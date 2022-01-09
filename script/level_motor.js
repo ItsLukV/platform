@@ -11,11 +11,15 @@ var turtorial = true;
 var turtorialTime = 0;
 const loadedLevels = [];
 var maxLevel = 0
+var finish = false
 
 // var scoreboard = JSON.Parse(scoreboardJSON);
 // var scoreboardJSON = //the way to get a JSON from a server
 
 //level = 0 = turtorial
+
+
+
 function levelChange() {
   if (level < 0) {
     print("uncaught below 0 level= " + level);
@@ -32,10 +36,10 @@ function levelChange() {
     return;
   }
   if (level == 0) {
-    //chacks if you are in level 0
+    //checks if you are in level 0
     turtorial = true;
-    timer("start");
-  } else if (turtorial == true) {
+  }
+  if (turtorial == true && level ==1) {
     turtorial = false;
     turtorialTime = timer("end"); //sets turtorial penalty
     print("stop turtorial" + turtorialTime);
@@ -56,13 +60,14 @@ function levelChange() {
 }
 
 function bottomLevel() {
+  print("bottom")
   level -= 2;
   gameEnd()
   levelLogic(false); // loads level if above level 0
-  print(level)
 }
 
 function rightLevel() {
+  print("right")
   level++;
   levelLogic(true);
   saveDifficulty();
@@ -70,12 +75,15 @@ function rightLevel() {
 }
 
 function behindLevel() {
+  print("left")
   level--;
   gameEnd()
   levelLogic(false); // loads level if above level 0
 }
 
 function levelLogic(increase) {
+  if(!finish){
+    print("WTF")
   //player stuff
   mand.x = 150; // makes sure player is in starting possition for the level
   mand.y = 100;
@@ -85,7 +93,7 @@ function levelLogic(increase) {
   if (increase) {
     // if level increased
     console.log("increased level");
-    if (!loadedLevels[level]) {
+    if (!loadedLevels[level] && !finish) {
       console.log("level not loaded");
       mand.col -= 5; // changes player color to differentiate number of level changes
       if (platNum > 5 && random(0,2)>1) {
@@ -128,7 +136,7 @@ function levelLogic(increase) {
         pointMultiplier(null, level - levelStore); // sets a level multiplier
       }
     }
-  } else {
+  } else{
     // if level didn't increase
     console.log("level didn't increase");
     mand.col += 5; // changes player color to differentiate number of level changes
@@ -140,7 +148,9 @@ function levelLogic(increase) {
       platform[i].h = levelDifficulty[level].specPlat[i].specPlatH;
     }
   }
-}
+}else{
+  finish = false
+}}
 
 function pointMultiplier(platformMulti, levelMulti) {
   if (platformMulti != null) {
@@ -169,17 +179,18 @@ function timer(go) {
 function score() {
   return (
     //gives a score based on time and multiplier
-    timer("end") -
-    startTime /*5332*/ -
-    ((timer("end") - startTime) % 1000) -
-    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) * pointModify
+    ((timer("end") -
+    (timer("end") % 1000) -
+    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) * pointModify)) - ((timer("end") -
+    (timer("end") % 1000) -
+    ((turtorialTime - (turtorialTime % 1000) / 1000 / 1000) / 2) * pointModify) % 1)
   );
   console.log("score running");
 }
 
 function scoreboard(score) {
   console.log("scoreboard running");
-  return score; //temp until server works
+  return ("your score is: " + score + " points") //temp until server works
   //will use json on HTX.mtdm.dk
   //still need to figure out how
   //DOES NOT FUNCTION
@@ -221,7 +232,8 @@ function DifficultyPlatformStorage(j) {
 function gameEnd(){
   if(level>maxLevel){
     maxLevel = level
-  } else if ((maxLevel-4) <= level){
+  } else if ((maxLevel-3) > level || level < 1){
   gameOver()
+  finish = true
   }
 }

@@ -82,6 +82,7 @@ function menu(death) {
     Menu = !Menu;
   }
   function tryk() {
+    timer("start")
     running = true;
     knap.hide();
     print("Start");
@@ -106,6 +107,7 @@ function variableFlush() {
     levelDifficulty [i] = undefined
   }
   maxLevel = 0
+  finish = false
 
   //standard
   platNum = 10;
