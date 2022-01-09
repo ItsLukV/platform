@@ -8,14 +8,12 @@ draw()
 var platNum = 10;
 var state = "gameStart";
 var running = false;
-var myFont;
+var div;
 
 function preload() {
-  myFont = loadFont("Font.ttf");
   img = loadImage("placeholder.png");
   loadJSON(url, gotData);
 }
-var div;
 
 function setup() {
   sunGet();
@@ -43,20 +41,18 @@ function game() {
   fill(0);
   setBackDrop(false);
   for (var i = 0; i < platNum; i++) {
+    //dette skaber platformene
     platform[i].display();
     platform[i].move();
-    collision(mand, platform[i]);
+    collision(mand, platform[i]); //dette siger at player og platformen skal have kollision
   }
-  movement();
-  // for(var i = 0; i < platNum; i++){
-  // }
-  mand.display();
-
-  tyndekraft();
-  mand.x += velX;
-  mand.y += velY;
-  canvasCut();
-  levelChange();
+  movement(); //checker om spiller prøver at bevæge manden
+  mand.display(); //tegner spilleren
+  tyndekraft(); //giver tyndekraft til spilleren
+  mand.x += velX; //pluser hastighden til spilleren
+  mand.y += velY; //pluser hastighden til spilleren
+  canvasCut(); //Dette gemme alt, det unødvendigt ud
+  levelChange(); //checker om level skal ændres
 }
 
 function screenSelect() {
@@ -69,7 +65,6 @@ var Menu = true;
 function menu(death) {
   if (death) {
     push();
-    // font(myFont);
     fill(0);
     textSize(100);
     text("GAME OVER", plotx(100), ploty(100));
@@ -135,23 +130,22 @@ function variableFlush() {
     platform[i] = undefined;
   }
 
-  //background
-  scrX = 0;
-  scrY = 0;
   setup();
 }
 
+var div = select(`#dashbord`);
+
 function dashboard() {
-  // console.log(score());
   if (!Menu) {
+    //dette siger, hvis spiller køre skal den opdater dashboard
     div.html(`Level: ${level}. Score: ${score()}`);
   } else {
+    //dette siger, hvis spiller ikke køre, skal denne sætte score til den sidste kende score.
     div.html(`Level: ${level}. Score: ${tempScore}`);
   }
-  div.style("height", "auto");
-  div.style("font-size", "100px");
-  div.style("background-color", "220");
-  div.style("text-align", "center");
-  div.style("width", "100%");
-  div.position(0, 0);
+  div.style("height", "auto"); //dette bestemmer højden på div
+  div.style("font-size", "100px"); //dette bestemmer font størlsen på div
+  div.style("text-align", "center"); //Dette div i centrum
+  div.style("width", "100%"); //dette bestmmer bredden på div
+  div.position(0, 0); //dette fjener bagrund på div
 }

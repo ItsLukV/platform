@@ -10,7 +10,6 @@ function movement() {
     if (BundCol == true) {
       BundCol = !BundCol;
       if (keyIsDown(UP_ARROW)) {
-        //32
         //OP
         if (velY > -speed) {
           velY -= jumpH;
@@ -24,9 +23,7 @@ function movement() {
       }
     }
     if (keyIsDown(LEFT_ARROW)) {
-      //37
       //Venstre
-
       if (velX > -speed) {
         velX -= moveSpeed;
       }
