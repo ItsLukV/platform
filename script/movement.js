@@ -38,6 +38,7 @@ function death() {
   if (song.isPlaying()) {
     song.stop();
   }
+  saveScoreboard();
   running = false;
   setBackDrop(false);
   Menu = true;
