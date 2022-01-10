@@ -1,4 +1,3 @@
-//100% David og hans far
 /*
 collision
 collisionkl

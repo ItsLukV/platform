@@ -1,5 +1,3 @@
-//85% david
-
 /*
 setBackDrop
 canvasCut

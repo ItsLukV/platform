@@ -1,5 +1,3 @@
-//95% david kode 5% lukas code
-
 var level = 0;
 var point = 0;
 var bonusNum = null;

@@ -1,5 +1,3 @@
-//50% david 50% lukas
-
 /*
 gotData()
 sunGet

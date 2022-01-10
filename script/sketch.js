@@ -1,5 +1,3 @@
-//a mix of everyones code
-
 /*
 plotx()
 plotY()
