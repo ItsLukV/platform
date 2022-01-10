@@ -20,9 +20,9 @@ var finish = false;
 
 function levelChange() {
   if (level < 0) {
-    print("uncaught below 0 level= " + level);
+    console.log("uncaught below 0 level= " + level);
     running = false;
-    print("set running = true to contenue");
+    console.log("set running = true to contenue");
     for (let i = 0; j; i++) {
       let j = false;
       wait(100);
@@ -40,7 +40,7 @@ function levelChange() {
   if (turtorial == true && level == 1) {
     turtorial = false;
     turtorialTime = timer("end"); //sets turtorial penalty
-    print("stop turtorial" + turtorialTime);
+    console.log("stop turtorial" + turtorialTime);
   }
   if (mand.y >= 900 - 50) {
     //decrease level if man is leaving level (bottom)
@@ -58,14 +58,14 @@ function levelChange() {
 }
 
 function bottomLevel() {
-  print("bottom");
+  console.log("bottom");
   level -= 2;
   gameEnd();
   levelLogic(false); // loads level if above level 0
 }
 
 function rightLevel() {
-  print("right");
+  console.log("right");
   level++;
   levelLogic(true);
   saveDifficulty();
@@ -73,7 +73,7 @@ function rightLevel() {
 }
 
 function behindLevel() {
-  print("left");
+  console.log("left");
   level--;
   gameEnd();
   levelLogic(false); // loads level if above level 0
@@ -81,7 +81,7 @@ function behindLevel() {
 
 function levelLogic(increase) {
   if (!finish) {
-    print("WTF");
+    console.log("WTF");
     //player stuff
     mand.x = 150; // makes sure player is in starting possition for the level
     mand.y = 100;

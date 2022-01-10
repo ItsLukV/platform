@@ -9,13 +9,13 @@ function setBackDrop(isSetup) {
   if (isSetup || windowHeight !== height || windowWidth !== width) {
     createCanvas(windowWidth, windowHeight);
     background(220);
-    print("changes");
+    console.log("changes");
     if (sunGet) {
       fill(45, 181, 151);
-      print("bright");
+      console.log("bright");
     } else {
       fill(45 / 2, 181 / 2, 151 / 2);
-      print("dark");
+      console.log("dark");
     }
   } else {
     if (sunGet) {

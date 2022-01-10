@@ -12,7 +12,7 @@ var data;
 function gotData(info) {
   data = info;
   if (data) {
-    print(data);
+    console.log(data);
   }
 }
 
@@ -25,6 +25,6 @@ function sunGet(/*checks if sun is up*/) {
   } else {
     light = false;
   }
-  print("lighting is currently " + light);
+  console.log("lighting is currently " + light);
   return light;
 }

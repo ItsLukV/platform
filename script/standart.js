@@ -85,7 +85,7 @@ function menu(death) {
     }
     running = true;
     knap.hide();
-    print("Start");
+    console.log("Start");
   }
 }
 
