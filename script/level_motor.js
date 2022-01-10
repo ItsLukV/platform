@@ -192,14 +192,6 @@ function scoreCalM(modul) {
   }
 }
 
-function scoreboard(score) {
-  console.log("scoreboard running");
-  return "your score is: " + score + " points"; //temp until server works
-  //will use json on HTX.mtdm.dk
-  //still need to figure out how
-  //DOES NOT FUNCTION
-}
-
 let tempScore = 0;
 function gameOver() {
   //will end game

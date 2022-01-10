@@ -135,18 +135,3 @@ function variableFlush() {
 
   setup();
 }
-
-function dashboard() {
-  if (!Menu) {
-    //dette siger, hvis spiller køre skal den opdater dashboard
-    div.html(`Level: ${level}. Score: ${score()}`);
-  } else {
-    //dette siger, hvis spiller ikke køre, skal denne sætte score til den sidste kende score.
-    div.html(`Score: ${tempScore}`);
-  }
-  div.style("height", "auto"); //dette bestemmer højden på div
-  div.style("font-size", "100px"); //dette bestemmer font størlsen på div
-  div.style("text-align", "center"); //Dette div i centrum
-  div.style("width", "100%"); //dette bestmmer bredden på div
-  div.position(0, 0); //dette fjener bagrund på div
-}
