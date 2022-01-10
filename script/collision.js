@@ -3,8 +3,6 @@ collision
 collisionkl
 */
 
-//Lukas
-
 // player.y + player.size < object.y /*over*/
 
 function collision(player, object) {
@@ -58,12 +56,3 @@ function manOnTopObject(object) {
     mand.y + mand.size >= object.y && mand.y + mand.size <= object.y + object.h
   );
 }
-// function freec(object,ii){
-//   for(let i = 0; i> object.w; i++){
-//     if(object.x+i == mand.x+ii){
-//       return(true)
-//     }else{
-//       return(false)
-//     }
-//   }
-// }

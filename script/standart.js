@@ -142,7 +142,7 @@ function dashboard() {
     div.html(`Level: ${level}. Score: ${score()}`);
   } else {
     //dette siger, hvis spiller ikke køre, skal denne sætte score til den sidste kende score.
-    div.html(`Level: ${level}. Score: ${tempScore}`);
+    div.html(`Score: ${tempScore}`);
   }
   div.style("height", "auto"); //dette bestemmer højden på div
   div.style("font-size", "100px"); //dette bestemmer font størlsen på div
